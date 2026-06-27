@@ -937,11 +937,9 @@
 
       /* 🔴 【修正②】スマホ用メディアクエリのセレクタ簡略化（.glass-section 単一で指定） */
       :root {
-    --section-gap: 100px; /* ← セクション間、スマホ時は隙間を狭める（上書き） */
-      }
     .glass-section {
     padding: 56px 16px;
-    margin-bottom: var(--section-gap);
+    margin-bottom: 100px; /* ← スマホ用の隙間を直接指定 */
     background: rgba(255, 251, 244, 0.96);
       }
 
