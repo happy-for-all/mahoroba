@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- ============================================================
+    ★★★ 公開時はこの1行を削除またはコメントアウトしてください ★★★
+  ============================================================ -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>まほろば！| ダダサバイバー ギルド 攻略・最新情報</title>
+  <meta name="description" content="ダダサバイバーのギルド「まほろば！」の公式サイトです。攻略情報・最新アップデート・ギルド加入案内をまとめた、和幻想モダンなポータルサイト。">
+  <meta name="keywords" content="ダダサバイバー,ギルド,まほろば,攻略,最新情報,加入">
+
+  <!-- OGP -->
+  <meta property="og:title" content="まほろば！| ダダサバイバー ギルド">
+  <meta property="og:description" content="ダダサバイバーのギルド「まほろば！」公式サイト。攻略・最新情報・ギルド加入案内。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/"><!-- ★ 公開時に実際のURLへ変更 -->
+  <meta property="og:image" content="https://example.com/ogp.jpg"><!-- ★ OGP画像を用意して差し替え -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="まほろば！| ダダサバイバー ギルド">
+  <meta name="twitter:description" content="ダダサバイバーのギルド「まほろば！」公式サイト。">
+
+  <!-- 構造化データ（JSON-LD）-->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "まほろば！",
+    "description": "ダダサバイバーのギルド「まほろば！」。和幻想モダンをコンセプトにした、攻略情報ポータル。",
+    "url": "https://example.com/",
+    "sameAs": []
+  }
+  </script>
+  <!-- FAQPage 構造化データ（アコーディオンQ&Aに対応） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "まほろば！への加入条件は？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "どなたでも大歓迎です。詳細は「加入のご案内」セクションをご覧ください。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "初心者でも入れますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい、初心者の方も大歓迎です。メンバーがサポートします。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts（display=swap で非同期読み込み・速度優先） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+      カラー変数（ここを変えると全体の色が変わります）
+    ============================================================ */
+    :root {
+      --color-bg:        #F8F3EA; /* ← 背景色。明るいベージュ。例: #FFF8F0 に変えると少し白寄りに */
+      --color-text:      #4B4035; /* ← 本文の文字色。目に優しいチャコールブラウン */
+      --color-title:     #EACD70; /* ← タイトル「まほろば！」の文字色。淡い黄色 */
+      --color-accent:    #C78B44; /* ← アクセントカラー。ボタン・装飾・見出し線など */
+      --color-link:      #8A623A; /* ← リンクの色 */
+      --color-glass-bg:  rgba(255, 251, 244, 0.93); /* ← セクションの半透明背景色。0.93 = 少し透ける（和紙風すりガラス） */
+      --color-glass-border: rgba(199, 139, 68, 0.18); /* ← セクションの枠線色 */
+      --color-summary-bg: rgba(199, 139, 68, 0.08); /* ← アコーディオン見出しの背景 */
+    }
+
+    /* ============================================================
+      リセット & ベース
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth; /* スムーズスクロール */
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 16px;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: var(--color-link);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    a:hover { opacity: 0.7; }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ============================================================
+      BOTエリア（将来: Webhook / Cloudflare Worker / Python 等を埋め込む）
+      現在：上部右（PC時はヘッダー下のナビ付近、スマホ時は追従可能に設計）
+      ここを別の場所に移動したい場合は、このdivごと切り取って貼り直すだけでOK
+    ============================================================ */
+    #bot-area {
+      /* 現在は非表示。BOT実装時に display: block; に変更してください */
+      display: none;
+      position: fixed;
+      top: 80px;      /* ← 上部配置にするため、固定ナビゲーション（56px）の下に設定 */
+      right: 24px;
+      z-index: 1000;
+      width: 300px;
+    }
+
+    /* ============================================================
+      固定ナビゲーション（シュリンクヘッダー対応）
+    ============================================================ */
+    #global-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 900;
+      background: rgba(248, 243, 234, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-glass-border);
+      transition: box-shadow 0.3s, padding 0.3s;
+      padding: 0px 0;
+    }
+    #global-nav.scrolled {
+      box-shadow: 0 2px 16px rgba(75, 64, 53, 0.1);
+      background: rgba(248, 243, 234, 0.94); /* スクロール時は少し不透明に */
+    }
+
+    .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: height 0.3s;
+    }
+    #global-nav.scrolled .nav-inner {
+      height: 48px; /* スクロール時に少しヘッダーを縮小（シュリンク効果） */
+    }
+
+    .nav-logo {
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-accent);
+      letter-spacing: 0.1em;
+      transition: font-size 0.3s;
+    }
+    #global-nav.scrolled .nav-logo {
+      font-size: 16px; /* ロゴサイズもスクロール時に控えめに */
+    }
+
+    /* PCナビリンク */
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--color-text);
+      letter-spacing: 0.05em;
+      position: relative;
+      padding-bottom: 2px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1.5px;
+      background: var(--color-accent);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover::after { width: 100%; opacity: 1; }
+    .nav-links a:hover { opacity: 1; }
+
+    /* ハンバーガーメニュー（スマホ用） */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--color-text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* スマホ用ドロワー */
+    .nav-drawer {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 56px; left: 0;
+      width: 100%;
+      background: rgba(248, 243, 234, 0.97);
+      border-bottom: 1px solid var(--color-glass-border);
+      padding: 12px 0;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      padding: 12px 28px;
+      font-size: 15px;
+      color: var(--color-text);
+      border-bottom: 1px solid var(--color-glass-border);
+    }
+    .nav-drawer a:last-child { border-bottom: none; }
+
+    /* ============================================================
+      【重要】背景固定レイヤー（<body>直下に配置する独立固定コンテナ）
+      スクロールしても背景画像が動かず、手前のコンテンツが浮き上がって滑る高級感。
+    ============================================================ */
+    #bg-layer {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;               /* 最背面に配置 */
+      pointer-events: none;     /* 背景画像をクリックできないようにする（操作妨害防止） */
+      overflow: hidden;
+    }
+
+    /*
+      ---- 背景画像（6〜7枚）の個別設定 ----
+      各画像の角度・サイズ・位置を個別に調整できます。
+    */
+    .photo-frame {
+      position: absolute;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(75, 64, 53, 0.18), 0 2px 8px rgba(75, 64, 53, 0.1);
+      background: #e8ddc8; /* 画像読み込み前の仮背景色 */
+      opacity: 0.82;       /* すりガラスの下からほんのり見えるよう透過度を最適化 */
+    }
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* 浮遊アニメーション（呼吸するようにゆっくりゆらゆら動く） */
+    @keyframes floatSlow1 {
+      0%, 100% { transform: rotate(-8deg) translateY(0); }
+      50%      { transform: rotate(-6deg) translateY(-8px); }
+    }
+    @keyframes floatSlow2 {
+      0%, 100% { transform: rotate(6deg) translateY(0); }
+      50%      { transform: rotate(8deg) translateY(6px); }
+    }
+    @keyframes floatSlow3 {
+      0%, 100% { transform: rotate(-3deg) translateY(0); }
+      50%      { transform: rotate(-4deg) translateY(-5px); }
+    }
+    @keyframes floatSlow4 {
+      0%, 100% { transform: rotate(9deg) translateY(0); }
+      50%      { transform: rotate(7deg) translateY(7px); }
+    }
+
+    /* 画像1 ← 左上エリア */
+    .photo-1 {
+      width: 20%;
+      aspect-ratio: 4/3;
+      top: 14%;
+      left: 3%;
+      animation: floatSlow1 12s ease-in-out infinite;
+    }
+    /* 画像2 ← 左中エリア */
+    .photo-2 {
+      width: 17%;
+      aspect-ratio: 3/4;
+      top: 44%;
+      left: 5%;
+      animation: floatSlow2 14s ease-in-out infinite;
+    }
+    /* 画像3 ← 中央上エリア */
+    .photo-3 {
+      width: 19%;
+      aspect-ratio: 4/3;
+      top: 10%;
+      left: 40%;
+      animation: floatSlow3 16s ease-in-out infinite;
+    }
+    /* 画像4 ← 右上エリア */
+    .photo-4 {
+      width: 20%;
+      aspect-ratio: 4/3;
+      top: 12%;
+      right: 3%;
+      animation: floatSlow4 13s ease-in-out infinite;
+    }
+    /* 画像5 ← 右中エリア */
+    .photo-5 {
+      width: 17%;
+      aspect-ratio: 3/4;
+      top: 42%;
+      right: 5%;
+      animation: floatSlow1 15s ease-in-out infinite;
+    }
+    /* 画像6 ← 左下エリア */
+    .photo-6 {
+      width: 18%;
+      aspect-ratio: 4/3;
+      bottom: 12%;
+      left: 4%;
+      animation: floatSlow2 15s ease-in-out infinite;
+    }
+    /* 画像7 ← 右下エリア */
+    .photo-7 {
+      width: 17%;
+      aspect-ratio: 4/3;
+      bottom: 10%;
+      right: 4%;
+      animation: floatSlow3 13s ease-in-out infinite;
+    }
+
+    /* ============================================================
+      【追加演出】桜が舞い散る和幻想パーティクル（CSSのみで超軽量動作）
+    ============================================================ */
+    .sakura {
+      position: absolute;
+      background: linear-gradient(135deg, #fff5f7 0%, #ffcbd5 100%);
+      border-radius: 100% 0% 100% 100%; /* 花びらの形 */
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0.6;
+    }
+    @keyframes fall {
+      0% {
+        top: -10%;
+        transform: translateX(0) rotate(0deg);
+      }
+      100% {
+        top: 110%;
+        transform: translateX(150px) rotate(360deg);
+      }
+    }
+    .sakura-1 { width: 10px; height: 8px; left: 15%; animation: fall 12s linear infinite; }
+    .sakura-2 { width: 12px; height: 10px; left: 45%; animation: fall 16s linear infinite; animation-delay: -5s; }
+    .sakura-3 { width: 8px; height: 6px; left: 75%; animation: fall 14s linear infinite; animation-delay: -2s; }
+    .sakura-4 { width: 14px; height: 11px; left: 90%; animation: fall 18s linear infinite; animation-delay: -8s; }
+
+    /* ============================================================
+      ヒーローエリア（全画面、コンテンツ固定）
+    ============================================================ */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding-top: 56px;
+      z-index: 2; /* 背景レイヤーの上に重ねる */
+    }
+
+    /* ヒーロー中央コンテンツ */
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      color: var(--color-accent);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 0.2s;
+    }
+
+    /* 
+      🔴 【修正①】「まほろば！」タイトル（CSSの統合・アニメーション整理）
+      1箇所の定義に集約し、競合を完全に排除。
+    */
+    .hero-title {
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      font-size: clamp(52px, 12vw, 96px); /* 画面幅に応じて最適に可変 */
+      letter-spacing: 0.18em;
+      color: var(--color-title);
+      text-shadow:
+        0 0 4px rgba(234, 205, 112, 0.2),
+        0 2px 8px rgba(75, 64, 53, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.05em;
+      margin-bottom: 24px;
+      /* titleGlow（1.9秒）実行完了後、2.5秒後に自然にglowBlink（灯篭の無限明滅）へ遷移 */
+      animation: titleGlow 1.9s ease forwards, glowBlink 4s ease-in-out infinite 2.5s;
+    }
+
+    /* 各文字を個別にアニメーション（「ま」から順番に0.15秒ずつ遅延） */
+    .hero-title .char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(12px) scale(0.92);
+      animation: charAppear 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .hero-title .char:nth-child(1) { animation-delay: 0.6s; }
+    .hero-title .char:nth-child(2) { animation-delay: 0.75s; }
+    .hero-title .char:nth-child(3) { animation-delay: 0.9s; }
+    .hero-title .char:nth-child(4) { animation-delay: 1.05s; }
+    .hero-title .char:nth-child(5) { animation-delay: 1.2s; }
+
+    .hero-tagline {
+      font-size: clamp(13px, 2vw, 16px);
+      letter-spacing: 0.15em;
+      color: var(--color-text);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 2.2s;
+      margin-bottom: 36px;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      padding: 14px 40px;
+      border: 1.5px solid var(--color-accent);
+      border-radius: 2px;
+      color: var(--color-accent);
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.2em;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 2.5s;
+      transition: background 0.3s, color 0.3s;
+    }
+    .hero-btn:hover {
+      background: var(--color-accent);
+      color: #fff;
+      opacity: 1;
+    }
+
+    /* スクロールダウン矢印 */
+    .scroll-down {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 3s;
+    }
+    .scroll-down span {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--color-accent);
+    }
+    /* 🟡 【修正④】scroll-down::after とキーフレームのブラウザ標準対応 */
+    .scroll-down::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--color-accent), transparent);
+      animation: scrollLine 1.5s ease infinite;
+      transform-origin: top; /* ← transform-origin を動的に切り替えず、ここで「top」に固定 */
+    }
+
+    /* ============================================================
+      キーフレームアニメーション
+    ============================================================ */
+    @keyframes charAppear {
+      from { opacity: 0; transform: translateY(12px) scale(0.92); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+    /* 灯篭の光（初期出現時） */
+    @keyframes titleGlow {
+      from { text-shadow: 0 0 0px rgba(234, 205, 112, 0), 0 2px 8px rgba(75,64,53,0.15); }
+      to   { text-shadow: 0 0 14px rgba(234, 205, 112, 0.4), 0 2px 8px rgba(75,64,53,0.1); }
+    }
+    /* 灯篭の揺らぎ（無限ループ用） */
+    @keyframes glowBlink {
+      0%, 100% { text-shadow: 0 0 14px rgba(234, 205, 112, 0.4), 0 2px 8px rgba(75,64,53,0.1); }
+      50%      { text-shadow: 0 0 24px rgba(234, 205, 112, 0.65), 0 0 32px rgba(199,139,68,0.2), 0 2px 8px rgba(75,64,53,0.1); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    /* 🟡 【修正④】scrollLine のシンプル化（origin切り替えバグ対策） */
+    @keyframes scrollLine {
+      0%   { transform: scaleY(0); opacity: 0; }
+      20%  { opacity: 1; }
+      80%  { transform: scaleY(1); opacity: 1; }
+      100% { transform: scaleY(1); opacity: 0; }
+    }
+
+    /* スクロールフェードイン（JS と連携） */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+      【重要：メインコンテンツレイヤー（フローティング補正）】
+      🔴 【修正③】main-content（手前を滑るフローティングレイヤー）にz-indexを明示
+    ============================================================ */
+    #main-content {
+      position: relative;
+      z-index: 2; /* 背景レイヤー（z-index: 0）の上に確実に重なるようにします */
+    }
+
+    /* 
+      🔴 【修正②】セクション共通（すりガラスフローティング仕様）
+      壊れやすい複合セレクタ「.contents.bg1.glass-section」をシンプルな単一セレクタに統合。
+    */
+    .glass-section {
+      position: relative;       /* 3Dレイヤー的な深度を設定するために必須 */
+      z-index: 2;               /* 背景レイヤー（0）より上に重ねる */
+      background: var(--color-glass-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid var(--color-glass-border);
+      border-bottom: 1px solid var(--color-glass-border);
+      padding: 80px 20px;
+      margin-bottom: 60px;      /* ← 隙間！スクロール時に背景の画像がここから美しく覗きます */
+      box-shadow: 0 4px 24px rgba(75, 64, 53, 0.04);
+    }
+
+    .section-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* セクション見出し装飾 */
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      color: var(--color-accent);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    .section-title {
+      font-size: clamp(22px, 4vw, 32px);
+      color: var(--color-text);
+      margin-bottom: 8px;
+    }
+    .section-divider {
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(to right, var(--color-accent), transparent);
+      margin-bottom: 40px;
+      border-radius: 2px;
+    }
+
+    /* ============================================================
+      ギルド紹介（about）
+    ============================================================ */
+    .about-text {
+      font-size: 15px;
+      line-height: 2;
+      color: var(--color-text);
+      margin-bottom: 24px;
+    }
+
+    /* ============================================================
+      ギルドの特色（features）カード
+    ============================================================ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 8px;
+    }
+    .feature-card {
+      background: rgba(255, 251, 244, 0.7);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 6px;
+      padding: 28px 24px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(75, 64, 53, 0.1);
+    }
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+    }
+    .feature-title {
+      font-size: 16px;
+      color: var(--color-accent);
+      margin-bottom: 10px;
+    }
+    .feature-desc {
+      font-size: 13px;
+      line-height: 1.9;
+      color: var(--color-text);
+    }
+
+    /* ============================================================
+      アコーディオン（details / summary — JSゼロ・SEO対応）
+    ============================================================ */
+    .accordion-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    details {
+      border: 1px solid var(--color-glass-border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: rgba(255, 251, 244, 0.6);
+      transition: background 0.3s, border-color 0.3s;
+      position: relative;
+    }
+    details::before {
+      /* 【追加演出】ホバー時に左端に伸びる和モダン金色のバー（UX向上） */
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--color-accent);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.3s ease;
+      z-index: 5;
+    }
+    details:hover::before {
+      transform: scaleY(1);
+    }
+    details:hover {
+      border-color: rgba(199, 139, 68, 0.4);
+    }
+    details[open] {
+      background: rgba(255, 251, 244, 0.85);
+    }
+
+    summary {
+      list-style: none;          /* デフォルトの▶を非表示 */
+      cursor: pointer;
+      padding: 18px 20px;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text);
+      background: var(--color-summary-bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    summary::-webkit-details-marker { display: none; } /* Safari対応 */
+    summary::marker { display: none; }
+    summary:hover { background: rgba(199, 139, 68, 0.13); }
+
+    /* アコーディオン内の「最終更新日」などのバッジ装飾 */
+    .accordion-tag {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      background: rgba(199, 139, 68, 0.12);
+      color: var(--color-accent);
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-left: auto;
+      margin-right: 8px;
+    }
+
+    /* 開閉アイコン（＋ / ×） */
+    summary::after {
+      content: '＋';
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--color-accent);
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    details[open] > summary::after {
+      content: '×';
+    }
+
+    .accordion-body {
+      padding: 20px 24px 24px;
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--color-text);
+      border-top: 1px solid var(--color-glass-border);
+    }
+    .accordion-body p + p { margin-top: 12px; }
+    .accordion-body ul {
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+    .accordion-body ul li {
+      margin-bottom: 6px;
+    }
+
+    /* ============================================================
+      加入案内（join）CTAボタン
+    ============================================================ */
+    .join-text {
+      font-size: 15px;
+      line-height: 2;
+      margin-bottom: 32px;
+    }
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 14px 36px;
+      border-radius: 2px;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.15em;
+      transition: all 0.3s;
+    }
+    .cta-btn-primary {
+      background: var(--color-accent);
+      color: #fff;
+      border: 1.5px solid var(--color-accent);
+    }
+    .cta-btn-primary:hover {
+      background: transparent;
+      color: var(--color-accent);
+      opacity: 1;
+    }
+    .cta-btn-secondary {
+      background: transparent;
+      color: var(--color-accent);
+      border: 1.5px solid var(--color-accent);
+    }
+    .cta-btn-secondary:hover {
+      background: var(--color-accent);
+      color: #fff;
+      opacity: 1;
+    }
+
+    /* ============================================================
+      AdSense プレースホルダー（コメントアウト状態）
+      ★ 公開時はコメントを外すだけで有効になります
+    ============================================================ */
+    .adsense-placeholder {
+      background: rgba(199, 139, 68, 0.05);
+      border: 1px dashed rgba(199, 139, 68, 0.3);
+      border-radius: 4px;
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--color-accent);
+      margin: 32px auto;
+      max-width: 800px;
+    }
+
+    /* ============================================================
+      フッター（SNSシェア含む）
+    ============================================================ */
+    #footer {
+      position: relative;
+      z-index: 2;               /* 背景固定レイヤーの上に重ねる */
+      background: rgba(75, 64, 53, 0.98);
+      color: rgba(255, 251, 244, 0.7);
+      text-align: center;
+      padding: 50px 20px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+    #footer a {
+      color: rgba(234, 205, 112, 0.8);
+    }
+    #footer a:hover { opacity: 0.7; }
+    .footer-share {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .share-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 2px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      border: 1px solid rgba(234, 205, 112, 0.4);
+      color: rgba(234, 205, 112, 0.9);
+      transition: all 0.2s;
+    }
+    .share-btn:hover {
+      background: rgba(234, 205, 112, 0.15);
+      opacity: 1;
+    }
+    .footer-copy {
+      margin-top: 16px;
+      line-height: 2;
+    }
+
+    /* ============================================================
+      過去のオリジナルCSS資産（デグレ防止マージ）
+      ちゃろ様が以前提供してくださったカスタムスタイル群をすべて温存しています
+    ============================================================ */
+    ul.cp_list {
+      position: relative;
+      padding: 0 0.5em;
+      margin: 20px 0px;
+      list-style-type: none;
+      border: 2px solid #D2691E;
+      background: #FFFFEE;
+    }
+    ul.cp_list::after {
+      position: absolute;
+      content: "LIST";
+      padding: 1px 7px;
+      letter-spacing: 0.06em;
+      font-weight: bold;
+      font-size: .6em;
+      background: rgba(210,105,30,0.99);
+      color: #FFFFFF;
+      bottom: 100%;
+      left: -2px;
+      border-radius: 4px 4px 0px 0px;
+    }
+    ul.cp_list li {
+      line-height: 1.5;
+      padding: 0.6em 0.7em;
+      border-bottom: 1px dashed #D2691E;
+    }
+    ul.cp_list li:last-child {
+      border-bottom: none;
+    }
+    blockquote {
+      position: relative;
+      padding: 17px;
+      font-style: italic;
+      color: #464646;
+      border: solid 2px #D2691E;
+      margin: 20px 0;
+      background: rgba(255, 251, 244, 0.5);
+    }
+    .btn-flat-border {
+      display: inline-block;
+      text-decoration: none;
+      color: #67c5ff;
+      border: solid 2px #67c5ff;
+      border-radius: 3px;
+      transition: .4s;
+      background-color: rgba(255,255,255,0.7); 
+      font-weight: bold;
+      padding: 4px 12px;
+      font-size: 11pt;
+      cursor: pointer;
+    }
+    .btn-flat-border:hover {
+      background: #67c5ff;
+      color: white;
+    }
+
+    /* ============================================================
+      スマホ対応（レスポンシブ・iOSバグ対策）
+    ============================================================ */
+    @media (max-width: 768px) {
+      /* ナビ */
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
+      /* スマホ時：可読性を極限まで高めるため背景画像群の透明度を下げ、セクションを少し不透明化 */
+      #bg-layer {
+        position: fixed; /* position:fixedのままにして全画面の背景を維持（iOSのスクロールバグを回避） */
+      }
+      .photo-frame {
+        opacity: 0.42 !important; /* スマホでは手前のテキストを読みやすくするために薄くする */
+        animation-duration: 20s !important; /* 動きをさらに超低速化してチラつきを防止 */
+      }
+
+      /* スマホ向けに各背景画像をコンパクトかつ画面中央〜上下に重なり合うように再配分 */
+      .photo-1 { width: 42%; top: 12%; left: -5%; }
+      .photo-2 { width: 38%; top: 40%; left: -8%; }
+      .photo-3 { width: 42%; top: 8%; left: 30%; }
+      .photo-4 { width: 44%; top: 10%; right: -5%; }
+      .photo-5 { width: 36%; top: 38%; right: -6%; }
+      .photo-6 { width: 42%; bottom: 8%; left: -5%; }
+      .photo-7 { width: 40%; bottom: 6%; right: -5%; }
+
+      /* 🔴 【修正②】スマホ用メディアクエリのセレクタ簡略化（.glass-section 単一で指定） */
+      .glass-section {
+        padding: 56px 16px;
+        margin-bottom: 40px; /* 隙間もスマホ向けに少し狭める */
+        background: rgba(255, 251, 244, 0.96); /* スマホ時はさらに不透明度を上げて可読性を最優先 */
+      }
+
+      /* CTAボタンを縦並びに */
+      .cta-group { flex-direction: column; }
+      .cta-btn { text-align: center; }
+    }
+
+    /* ============================================================
+      アクセシビリティ：アニメーション軽減設定に対応
+    ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+    【重要】背景固定レイヤー（桜パーティクル ＆ 思い出アルバム背景）
+    この中に置かれた画像群が背面に完全に固定され、手前のコンテンツがスライドします。
+    ★ 画像の差し替え方 ★
+    src="https://picsum.photos/..." の部分を、実際の画像パス（例: "/images/guild1.jpg"）に変更してください。
+  ============================================================ -->
+  <div id="bg-layer" aria-hidden="true">
+    <!-- 舞い落ちる桜の花びら -->
+    <div class="sakura sakura-1"></div>
+    <div class="sakura sakura-2"></div>
+    <div class="sakura sakura-3"></div>
+    <div class="sakura sakura-4"></div>
+
+    <!-- 背景アルバム写真群 -->
+    <div class="photo-frame photo-1">
+      <img src="https://picsum.photos/seed/mahoroba1/400/300" alt="ギルド活動の様子1" loading="lazy">
+    </div>
+    <div class="photo-frame photo-2">
+      <img src="https://picsum.photos/seed/mahoroba2/300/400" alt="ギルド活動の様子2" loading="lazy">
+    </div>
+    <div class="photo-frame photo-3">
+      <img src="https://picsum.photos/seed/mahoroba3/400/300" alt="ゲーム画面3" loading="lazy">
+    </div>
+    <div class="photo-frame photo-4">
+      <img src="https://picsum.photos/seed/mahoroba4/400/300" alt="ゲーム画面4" loading="lazy">
+    </div>
+    <div class="photo-frame photo-5">
+      <img src="https://picsum.photos/seed/mahoroba5/300/400" alt="ギルド活動の様子5" loading="lazy">
+    </div>
+    <div class="photo-frame photo-6">
+      <img src="https://picsum.photos/seed/mahoroba6/400/300" alt="ゲーム画面6" loading="lazy">
+    </div>
+    <div class="photo-frame photo-7">
+      <img src="https://picsum.photos/seed/mahoroba7/400/300" alt="ギルド活動の様子7" loading="lazy">
+    </div>
+  </div>
+
+  <!-- ============================================================
+    BOT エリア（将来 Webhook / Cloudflare Worker 等を埋め込む場所）
+    上部に配置。このdivをまるごと切り取ってどこにでも貼れます。
+  ============================================================ -->
+  <div id="bot-area">
+    <!-- ★ ここにBOTのコードやWebhook用のUIを埋め込みます ★ -->
+  </div>
+
+  <!-- ============================================================
+    固定ナビゲーション（スクロール検知 ＆ シュリンク対応）
+  ============================================================ -->
+  <nav id="global-nav" role="navigation" aria-label="メインナビゲーション">
+    <div class="nav-inner">
+      <span class="nav-logo">まほろば！</span>
+      <ul class="nav-links">
+        <li><a href="#about">ギルド紹介</a></li>
+        <li><a href="#features">特色・ルール</a></li>
+        <li><a href="#information">攻略・最新情報</a></li>
+        <li><a href="#join">加入のご案内</a></li>
+      </ul>
+      <button class="nav-hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- スマホ用ドロワーメニュー -->
+    <div class="nav-drawer" id="nav-drawer" role="menu">
+      <a href="#about"       onclick="closeDrawer()">ギルド紹介</a>
+      <a href="#features"    onclick="closeDrawer()">特色・ルール</a>
+      <a href="#information" onclick="closeDrawer()">攻略・最新情報</a>
+      <a href="#join"        onclick="closeDrawer()">加入のご案内</a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+    ヒーローエリア
+  ============================================================ -->
+  <header id="hero" role="banner">
+    <!-- ヒーロー中央コンテンツ -->
+    <div class="hero-content">
+      <p class="hero-subtitle">DADA SURVIVOR GUILD</p>
+      <h1 class="hero-title" aria-label="まほろば！">
+        <!-- 1文字ずつ順番に時間差フェードイン、最後は灯篭のようにゆっくり揺らいで明滅 -->
+        <span class="char">ま</span>
+        <span class="char">ほ</span>
+        <span class="char">ろ</span>
+        <span class="char">ば</span>
+        <span class="char">！</span>
+      </h1>
+      <p class="hero-tagline">理想郷へ、ようこそ。</p>
+      <a href="#about" class="hero-btn">ギルドを知る</a>
+    </div>
+
+    <!-- スクロールダウン矢印 -->
+    <div class="scroll-down" aria-hidden="true">
+      <span>SCROLL</span>
+    </div>
+  </header>
+
+  <!-- ============================================================
+    メインコンテンツ（手前を滑るフローティングレイヤー）
+  ============================================================ -->
+  <main id="main-content">
+
+    <!-- ============================================================
+      §1 ギルド紹介（about）
+      ★ SEO最重要セクション：アコーディオンを使わず全文を表示してクロールを最適化
+    ============================================================ -->
+    <section id="about" class="glass-section">
+      <div class="section-inner fade-in-up">
+        <p class="section-label">About Us</p>
+        <h2 class="section-title">ギルド紹介</h2>
+        <div class="section-divider"></div>
+
+        <p class="about-text">
+          ようこそ、<strong>まほろば！</strong>へ。<br>
+          私たちは、ダダサバイバーを愛するプレイヤーが集まるギルドです。<br>
+          「まほろば」とは、古の言葉で<em>「素晴らしい場所・理想郷」</em>を意味します。<br>
+          ゲームの中に、あなただけの「まほろば」を見つけませんか。
+        </p>
+
+        <p class="about-text">
+          <!-- ★ ここにギルドの紹介文を追加してください ★ -->
+          初心者から上級者まで、誰もが安心して楽しめる環境を大切にしています。<br>
+          お互いを尊重し、助け合いながら、一緒に成長していきましょう。
+        </p>
+
+        <!-- ★ ギルドの基本情報テーブル（後で数値等を更新） -->
+        <table style="width:100%;border-collapse:collapse;margin-top:32px;font-size:14px;">
+          <caption style="text-align:left;font-size:11px;letter-spacing:0.2em;color:var(--color-accent);margin-bottom:12px;">GUILD INFO</caption>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--color-glass-border);">
+              <th style="padding:14px 0;font-weight:500;color:var(--color-accent);width:35%;text-align:left;">ギルド名</th>
+              <td style="padding:14px 0;">まほろば！</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--color-glass-border);">
+              <th style="padding:14px 0;font-weight:500;color:var(--color-accent);text-align:left;">ゲーム</th>
+              <td style="padding:14px 0;">ダダサバイバー</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--color-glass-border);">
+              <th style="padding:14px 0;font-weight:500;color:var(--color-accent);text-align:left;">メンバー数</th>
+              <td style="padding:14px 0;">募集中！<!-- ★ 実際の数に更新 --></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--color-glass-border);">
+              <th style="padding:14px 0;font-weight:500;color:var(--color-accent);text-align:left;">活動時間</th>
+              <td style="padding:14px 0;">随時<!-- ★ 実際の活動時間に更新 --></td>
+            </tr>
+            <tr>
+              <th style="padding:14px 0;font-weight:500;color:var(--color-accent);text-align:left;">雰囲気</th>
+              <td style="padding:14px 0;">和気あいあい・初心者大歓迎</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================================
+      §2 ギルドの特色・ルール（features）
+    ============================================================ -->
+    <section id="features" class="glass-section">
+      <div class="section-inner fade-in-up">
+        <p class="section-label">Features</p>
+        <h2 class="section-title">ギルドの特色・ルール</h2>
+        <div class="section-divider"></div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🌸</div>
+            <h3 class="feature-title">初心者大歓迎</h3>
+            <p class="feature-desc">
+              ゲームを始めたばかりの方も安心。<br>
+              先輩メンバーが丁寧にサポートします。<br>
+              <!-- ★ 内容を追加・編集してください -->
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⚔️</div>
+            <h3 class="feature-title">攻略情報を共有</h3>
+            <p class="feature-desc">
+              国内外の最新攻略情報をメンバー間で共有。<br>
+              一緒に強くなりましょう。<br>
+              <!-- ★ 内容を追加・編集してください -->
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🏯</div>
+            <h3 class="feature-title">和やかな雰囲気</h3>
+            <p class="feature-desc">
+              ゲームを楽しむことを最優先に。<br>
+              無理なノルマは一切なし。<br>
+              <!-- ★ 内容を追加・編集してください -->
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🌐</div>
+            <h3 class="feature-title">グローバルな情報収集</h3>
+            <p class="feature-desc">
+              世界中のプレイヤーの情報をいち早くキャッチ。<br>
+              最先端の情報を共有します。<br>
+              <!-- ★ 内容を追加・編集してください -->
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AdSense 広告枠 ① （features セクション後） -->
+    <!--
+    <div class="adsense-placeholder" aria-hidden="true">
+      ★ AdSense 広告枠 ① ★ 公開時にコメントを外して有効化
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-2908004621823900"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    -->
+    <!-- 開発中の確認用（本番では削除してもOK、公開時にアドセンスコードに差し替え） -->
+    <div class="adsense-placeholder">広告枠 ① ここに表示予定（公開時にコメントを解除）</div>
+
+    <!-- ============================================================
+      §3 ダダサバ最新＆攻略情報（information）
+      ★ details/summary タグ使用 → JSゼロ・SEO最適・爆速
+    ============================================================ -->
+    <section id="information" class="glass-section">
+      <div class="section-inner fade-in-up">
+        <p class="section-label">News & Tips</p>
+        <h2 class="section-title">ダダサバ最新＆攻略情報</h2>
+        <div class="section-divider"></div>
+
+        <div class="accordion-list">
+
+          <!-- 【SEO・UX追加】超入門用アコーディオン -->
+          <details>
+            <summary>🎮 ダダサバイバーとは？ <span class="accordion-tag">入門</span></summary>
+            <div class="accordion-body">
+              <p><strong>ダダサバイバー</strong>とは、何千ものゾンビたちをなぎ倒す、爽快なローグライク・サバイバルアクションRPGです。</p>
+              <p>ギルドに参加することで、メンバー同士での情報交換や、「ギルド遠征」などの特別なイベントに参加して強力な報酬を手に入れることができます。「まほろば！」では、初心者の方が最速で成長できるよう全力でサポートしています！</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>🗞️ 最新アップデート情報 <span class="accordion-tag">2026-06-27更新</span></summary>
+            <div class="accordion-body">
+              <p><!-- ★ 最新パッチノート・アップデート内容をここに追加 --></p>
+              <p>国内外の最新アップデート情報を準備中です。情報が入り次第、随時最速で更新します。</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>🏆 Tierランキング（最新版） <span class="accordion-tag">攻略</span></summary>
+            <div class="accordion-body">
+              <p><!-- ★ Tier表・おすすめキャラ・装備などを追加 --></p>
+              <p>現在のおすすめキャラクター、武器、装備、スキルのTierランキング解説を準備中です。海外プレイヤーのメタも踏まえて情報を発信します。</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>⚔️ 初心者向け攻略ガイド <span class="accordion-tag">常設</span></summary>
+            <div class="accordion-body">
+              <p><!-- ★ 初心者が最初にやること・おすすめの進め方を追加 --></p>
+              <p>効率的なチャプターの進め方、毎日のルーティン、ジェムの最適な使い道をまとめたガイドを公開予定です。</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>🎒 装備・アイテム解説 <span class="accordion-tag">常設</span></summary>
+            <div class="accordion-body">
+              <p><!-- ★ おすすめ装備・アイテムの使い方などを追加 --></p>
+              <p>準備中です。SS装備の合成や、各装備スキルの正しい組み合わせについて分かりやすく図解していきます。</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>🐾 ペット・コレクション情報 <span class="accordion-tag">攻略</span></summary>
+            <div class="accordion-body">
+              <p><!-- ★ ペット・コレクションの入手方法・おすすめなどを追加 --></p>
+              <p>戦闘を劇的に有利にするおすすめペットや、コレクションの効率的な収集方法を解説します。</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>🌏 世界の攻略情報（海外版） <span class="accordion-tag">最先端</span></summary>
+            <div class="accordion-body">
+              <p><!-- ★ 海外フォーラム・Redditなどの有益情報を追加 --></p>
+              <p>日本国内だけでなく、Redditや海外コミュニティで検証された最先端の攻略情報やギミック対策をいち早くお届けします。</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>❓ よくある質問（FAQ） <span class="accordion-tag">FAQ</span></summary>
+            <div class="accordion-body">
+              <ul>
+                <li><strong>Q. 加入条件はありますか？</strong><br>A. 特にノルマや条件はありません。ダダサバイバーが好きな方、楽しんでプレイされている方ならどなたでも歓迎です！</li>
+                <li style="margin-top:14px;"><strong>Q. 初心者で何も分かりませんが大丈夫ですか？</strong><br>A. もちろんです！チャットでの質問にも、先輩メンバーが丁寧にお答えしますのでご安心ください。</li>
+                <li style="margin-top:14px;"><strong>Q. ギルド内のノルマや縛りはありますか？</strong><br>A. プレイヤーそれぞれの私生活やペースを最優先にしています。ご自身の楽しめる時間・範囲で参加してください。</li>
+              </ul>
+            </div>
+          </details>
+
+        </div><!-- /.accordion-list -->
+      </div>
+    </section>
+
+    <!-- AdSense 広告枠 ② （information セクション後） -->
+    <!--
+    <div class="adsense-placeholder" aria-hidden="true">
+      ★ AdSense 広告枠 ② ★ 公開時にコメントを外して有効化
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-2908004621823900"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    -->
+    <div class="adsense-placeholder">広告枠 ② ここに表示予定（公開時にコメントを解除）</div>
+
+    <!-- ============================================================
+      §4 加入のご案内（join）
+    ============================================================ -->
+    <section id="join" class="glass-section">
+      <div class="section-inner fade-in-up">
+        <p class="section-label">Join Us</p>
+        <h2 class="section-title">加入のご案内</h2>
+        <div class="section-divider"></div>
+
+        <p class="join-text">
+          「まほろば！」では、新しいメンバーを随時募集しています。<br>
+          初心者の方も、ベテランの方も、ぜひ一緒に理想郷を目指しましょう！<br>
+          <!-- ★ 加入方法・手順などを追加してください -->
+        </p>
+
+        <div class="cta-group">
+          <!-- ★ リンク先を実際のDiscord / SNS等に変更してください -->
+          <a href="#" class="cta-btn cta-btn-primary">Discord で加入する</a>
+          <a href="#" class="cta-btn cta-btn-secondary">お問い合わせ</a>
+        </div>
+      </div>
+    </section>
+
+  </main><!-- /#main-content -->
+
+  <!-- ============================================================
+    フッター（シェアボタン・著作権）
+  ============================================================ -->
+  <footer id="footer">
+
+    <!-- シェアボタン（エスケープバグを完全除去） -->
+    <div class="footer-share">
+      <a href="https://twitter.com/intent/tweet?url=https://example.com/&text=まほろば！| ダダサバイバー ギルド" target="_blank" rel="noopener noreferrer" class="share-btn">X でシェア</a>
+      <a href="https://line.me/R/msg/text/?まほろば！%0Ahttps://example.com/" target="_blank" rel="noopener noreferrer" class="share-btn">LINE でシェア</a>
+    </div>
+
+    <!-- AdSense 広告枠 ③ （フッター上） -->
+    <!--
+    <div class="adsense-placeholder" aria-hidden="true">
+      ★ AdSense 広告枠 ③ ★ 公開時にコメントを外して有効化
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-2908004621823900"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    -->
+
+    <div class="footer-copy">
+      <p>Copyright &copy; まほろば！ All Rights Reserved.</p>
+      <p style="margin-top:8px;">
+        <a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank" rel="noopener noreferrer">
+          <img style="border:0;width:88px;height:31px;"
+               src="https://jigsaw.w3.org/css-validator/images/vcss"
+               alt="正当なCSSです!" loading="lazy">
+        </a>
+      </p>
+    </div>
+
+  </footer>
+
+  <!-- ============================================================
+    JavaScript（最小限・ライブラリ依存ゼロ）
+    ① ナビゲーション：スクロール検知（シュリンク効果） + ハンバーガーメニュー
+    ② スクロールフェードイン（Intersection Observer）
+  ============================================================ -->
+  <script>
+    // ① ナビ：スクロール時にクラス付与（シュリンク・影の付与）
+    const nav = document.getElementById('global-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ① ハンバーガーメニューの開閉
+    const hamburger = document.getElementById('hamburger');
+    const drawer    = document.getElementById('nav-drawer');
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      drawer.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+    function closeDrawer() {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+
+    // ② スクロールフェードイン（Intersection Observer）
+    const fadeEls = document.querySelectorAll('.fade-in-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // 一度表示したら監視を解除して負荷を軽減
+        }
+      });
+    }, {
+      threshold: 0.12 // 要素が12%画面に入ったら発火
+    });
+    fadeEls.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
