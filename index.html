@@ -78,8 +78,9 @@
       --color-glass-bg:  rgba(255, 251, 244, 0.93); /* ← セクションの半透明背景色。0.93 = 少し透ける（和紙風すりガラス） */
       --color-glass-border: rgba(199, 139, 68, 0.18); /* ← セクションの枠線色 */
       --color-summary-bg: rgba(199, 139, 68, 0.08); /* ← アコーディオン見出しの背景 */
+      --section-gap: 120px; /* ← セクション間の隙間。大きくすると背景画像がよく見えます。例: 60px / 120px / 200px */
     }
-
+    
     /* ============================================================
       リセット & ベース
     ============================================================ */
@@ -293,62 +294,70 @@
       50%      { transform: rotate(7deg) translateY(7px); }
     }
 
-    /* 画像1 ← 左上エリア */
-    .photo-1 {
-      width: 20%;
-      aspect-ratio: 4/3;
-      top: 14%;
-      left: 3%;
-      animation: floatSlow1 12s ease-in-out infinite;
-    }
-    /* 画像2 ← 左中エリア */
-    .photo-2 {
-      width: 17%;
-      aspect-ratio: 3/4;
-      top: 44%;
-      left: 5%;
-      animation: floatSlow2 14s ease-in-out infinite;
-    }
-    /* 画像3 ← 中央上エリア */
-    .photo-3 {
-      width: 19%;
-      aspect-ratio: 4/3;
-      top: 10%;
-      left: 40%;
-      animation: floatSlow3 16s ease-in-out infinite;
-    }
-    /* 画像4 ← 右上エリア */
-    .photo-4 {
-      width: 20%;
-      aspect-ratio: 4/3;
-      top: 12%;
-      right: 3%;
-      animation: floatSlow4 13s ease-in-out infinite;
-    }
-    /* 画像5 ← 右中エリア */
-    .photo-5 {
-      width: 17%;
-      aspect-ratio: 3/4;
-      top: 42%;
-      right: 5%;
-      animation: floatSlow1 15s ease-in-out infinite;
-    }
-    /* 画像6 ← 左下エリア */
-    .photo-6 {
-      width: 18%;
-      aspect-ratio: 4/3;
-      bottom: 12%;
-      left: 4%;
-      animation: floatSlow2 15s ease-in-out infinite;
-    }
-    /* 画像7 ← 右下エリア */
-    .photo-7 {
-      width: 17%;
-      aspect-ratio: 4/3;
-      bottom: 10%;
-      right: 4%;
-      animation: floatSlow3 13s ease-in-out infinite;
-    }
+    /* 画像2（中央配置用）：translateX(-50%)を保持しながら浮遊 */
+    @keyframes floatCenter {
+      0%, 100% { transform: translateX(-50%) rotate(-3deg) translateY(0); }
+      50%      { transform: translateX(-50%) rotate(-4deg) translateY(-5px); }
+}
+    /* 画像1 ← 左上エリア
+   角度変更: floatSlow1内のrotate値（-8deg/-6deg）を変えてください */
+.photo-1 {
+  width: 22%;        /* ← サイズ変更はここ */
+  aspect-ratio: 4/3;
+  top: 8%;           /* ← 上下位置変更はここ */
+  left: 2%;          /* ← 左右位置変更はここ */
+  animation: floatSlow1 12s ease-in-out infinite;
+}
+/* 画像2 ← 中央上エリア */
+/* 画像2の animation のみ変更 */
+.photo-2 {
+  width: 18%;
+  aspect-ratio: 3/4;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: floatCenter 16s ease-in-out infinite; /* ← floatCenter に変更 */
+}
+/* 画像3 ← 右上エリア */
+.photo-3 {
+  width: 21%;
+  aspect-ratio: 4/3;
+  top: 7%;
+  right: 2%;
+  animation: floatSlow4 13s ease-in-out infinite;
+}
+/* 画像4 ← 左中エリア */
+.photo-4 {
+  width: 19%;
+  aspect-ratio: 3/4;
+  top: 38%;
+  left: 1%;
+  animation: floatSlow2 14s ease-in-out infinite;
+}
+/* 画像5 ← 右中エリア */
+.photo-5 {
+  width: 19%;
+  aspect-ratio: 3/4;
+  top: 36%;
+  right: 1%;
+  animation: floatSlow1 15s ease-in-out infinite;
+}
+/* 画像6 ← 左下エリア */
+.photo-6 {
+  width: 21%;
+  aspect-ratio: 4/3;
+  bottom: 6%;
+  left: 2%;
+  animation: floatSlow2 15s ease-in-out infinite;
+}
+/* 画像7 ← 右下エリア */
+.photo-7 {
+  width: 20%;
+  aspect-ratio: 4/3;
+  bottom: 5%;
+  right: 2%;
+  animation: floatSlow3 13s ease-in-out infinite;
+}
 
     /* ============================================================
       【追加演出】桜が舞い散る和幻想パーティクル（CSSのみで超軽量動作）
@@ -371,10 +380,10 @@
         transform: translateX(150px) rotate(360deg);
       }
     }
-    .sakura-1 { width: 10px; height: 8px; left: 15%; animation: fall 12s linear infinite; }
-    .sakura-2 { width: 12px; height: 10px; left: 45%; animation: fall 16s linear infinite; animation-delay: -5s; }
-    .sakura-3 { width: 8px; height: 6px; left: 75%; animation: fall 14s linear infinite; animation-delay: -2s; }
-    .sakura-4 { width: 14px; height: 11px; left: 90%; animation: fall 18s linear infinite; animation-delay: -8s; }
+    .sakura-1 { width: 20px; height: 16px; left: 15%; animation: fall 12s linear infinite; }
+    .sakura-2 { width: 24px; height: 20px; left: 45%; animation: fall 16s linear infinite; animation-delay: -5s; }
+    .sakura-3 { width: 16px; height: 12px; left: 75%; animation: fall 14s linear infinite; animation-delay: -2s; }
+    .sakura-4 { width: 28px; height: 22px; left: 90%; animation: fall 18s linear infinite; animation-delay: -8s; }
 
     /* ============================================================
       ヒーローエリア（全画面、コンテンツ固定）
@@ -568,7 +577,7 @@
       border-top: 1px solid var(--color-glass-border);
       border-bottom: 1px solid var(--color-glass-border);
       padding: 80px 20px;
-      margin-bottom: 60px;      /* ← 隙間！スクロール時に背景の画像がここから美しく覗きます */
+      margin-bottom: var(--section-gap); /* ← :root の --section-gap で一元管理できます */
       box-shadow: 0 4px 24px rgba(75, 64, 53, 0.04);
     }
 
@@ -933,10 +942,13 @@
       .photo-7 { width: 40%; bottom: 6%; right: -5%; }
 
       /* 🔴 【修正②】スマホ用メディアクエリのセレクタ簡略化（.glass-section 単一で指定） */
-      .glass-section {
-        padding: 56px 16px;
-        margin-bottom: 40px; /* 隙間もスマホ向けに少し狭める */
-        background: rgba(255, 251, 244, 0.96); /* スマホ時はさらに不透明度を上げて可読性を最優先 */
+      :root {
+    --section-gap: 40px; /* ← スマホ時は隙間を狭める（上書き） */
+      }
+    .glass-section {
+    padding: 56px 16px;
+    margin-bottom: var(--section-gap);
+    background: rgba(255, 251, 244, 0.96);
       }
 
       /* CTAボタンを縦並びに */
