@@ -78,7 +78,7 @@
       --color-glass-bg:  rgba(255, 251, 244, 0.93); /* ← セクションの半透明背景色。0.93 = 少し透ける（和紙風すりガラス） */
       --color-glass-border: rgba(199, 139, 68, 0.18); /* ← セクションの枠線色 */
       --color-summary-bg: rgba(199, 139, 68, 0.08); /* ← アコーディオン見出しの背景 */
-      --section-gap: 300px; /* ← セクション間の隙間。大きくすると背景画像がよく見えます。例: 60px / 120px / 200px */
+      --section-gap: 250px; /* ← セクション間の隙間。大きくすると背景画像がよく見えます。例: 60px / 120px / 200px */
     }
     
     /* ============================================================
@@ -802,7 +802,7 @@
       text-align: center;
       font-size: 12px;
       color: var(--color-accent);
-      margin: 32px auto;
+      margin: var(--section-gap) auto; /* ← section-gapに連動させる */
       max-width: 800px;
     }
 
@@ -937,7 +937,7 @@
 
       /* 🔴 【修正②】スマホ用メディアクエリのセレクタ簡略化（.glass-section 単一で指定） */
       :root {
-    --section-gap: 100px; /* ← スマホ時は隙間を狭める（上書き） */
+    --section-gap: 100px; /* ← セクション間、スマホ時は隙間を狭める（上書き） */
       }
     .glass-section {
     padding: 56px 16px;
@@ -1180,9 +1180,8 @@
       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
     -->
-    <!-- 開発中の確認用（本番では削除してもOK、公開時にアドセンスコードに差し替え） -->
-    <div class="adsense-placeholder">広告枠 ① ここに表示予定（公開時にコメントを解除）</div>
 
+    
     <!-- ============================================================
       §3 ダダサバ最新＆攻略情報（information）
       ★ details/summary タグ使用 → JSゼロ・SEO最適・爆速
@@ -1280,8 +1279,7 @@
       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
     -->
-    <div class="adsense-placeholder">広告枠 ② ここに表示予定（公開時にコメントを解除）</div>
-
+    
     <!-- ============================================================
       §4 加入のご案内（join）
     ============================================================ -->
