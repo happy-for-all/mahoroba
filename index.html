@@ -299,63 +299,61 @@
       0%, 100% { transform: translateX(-50%) rotate(-3deg) translateY(0); }
       50%      { transform: translateX(-50%) rotate(-4deg) translateY(-5px); }
 }
-    /* 画像1 ← 左上エリア
-   角度変更: floatSlow1内のrotate値（-8deg/-6deg）を変えてください */
+    /* 角度変更: floatSlow1内のrotate値（-8deg/-6deg）を変えてください */
+/* 画像1 ← 左上 */
 .photo-1 {
-  width: 22%;        /* ← サイズ変更はここ */
-  aspect-ratio: 4/3;
-  top: 8%;           /* ← 上下位置変更はここ */
-  left: 2%;          /* ← 左右位置変更はここ */
-  animation: floatSlow1 12s ease-in-out infinite;
-}
-/* 画像2 ← 中央上エリア */
-/* 画像2の animation のみ変更 */
-.photo-2 {
-  width: 18%;
-  aspect-ratio: 3/4;
-  top: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: floatCenter 16s ease-in-out infinite; /* ← floatCenter に変更 */
-}
-/* 画像3 ← 右上エリア */
-.photo-3 {
   width: 21%;
   aspect-ratio: 4/3;
-  top: 7%;
-  right: 2%;
-  animation: floatSlow4 13s ease-in-out infinite;
+  top: 6%;
+  left: 1%;
+  animation: floatSlow1 12s ease-in-out infinite;
 }
-/* 画像4 ← 左中エリア */
+/* 画像2 ← 右上 */
+.photo-2 {
+  width: 19%;
+  aspect-ratio: 3/4;
+  top: 4%;
+  right: 1%;
+  animation: floatSlow2 14s ease-in-out infinite;
+}
+/* 画像3 ← 左中上 */
+.photo-3 {
+  width: 20%;
+  aspect-ratio: 4/3;
+  top: 30%;
+  left: 2%;
+  animation: floatSlow3 16s ease-in-out infinite;
+}
+/* 画像4 ← 右中上 */
 .photo-4 {
   width: 19%;
   aspect-ratio: 3/4;
-  top: 38%;
-  left: 1%;
-  animation: floatSlow2 14s ease-in-out infinite;
+  top: 28%;
+  right: 2%;
+  animation: floatSlow4 13s ease-in-out infinite;
 }
-/* 画像5 ← 右中エリア */
+/* 画像5 ← 左中下 */
 .photo-5 {
-  width: 19%;
-  aspect-ratio: 3/4;
-  top: 36%;
-  right: 1%;
-  animation: floatSlow1 15s ease-in-out infinite;
-}
-/* 画像6 ← 左下エリア */
-.photo-6 {
-  width: 21%;
-  aspect-ratio: 4/3;
-  bottom: 6%;
-  left: 2%;
-  animation: floatSlow2 15s ease-in-out infinite;
-}
-/* 画像7 ← 右下エリア */
-.photo-7 {
   width: 20%;
   aspect-ratio: 4/3;
-  bottom: 5%;
-  right: 2%;
+  top: 58%;
+  left: 1%;
+  animation: floatSlow1 15s ease-in-out infinite;
+}
+/* 画像6 ← 右中下 */
+.photo-6 {
+  width: 18%;
+  aspect-ratio: 3/4;
+  top: 55%;
+  right: 1%;
+  animation: floatSlow2 15s ease-in-out infinite;
+}
+/* 画像7 ← 左下（アクセント） */
+.photo-7 {
+  width: 21%;
+  aspect-ratio: 4/3;
+  bottom: 3%;
+  left: 2%;
   animation: floatSlow3 13s ease-in-out infinite;
 }
 
@@ -934,7 +932,7 @@
 
       /* スマホ向けに各背景画像をコンパクトかつ画面中央〜上下に重なり合うように再配分 */
       .photo-1 { width: 42%; top: 12%; left: -5%; }
-      .photo-2 { width: 38%; top: 40%; left: -8%; }
+      .photo-2 { width: 38%; top: 40%; left: -8%; transform: rotate(6deg); } /* ← translateX(-50%)をリセット */
       .photo-3 { width: 42%; top: 8%; left: 30%; }
       .photo-4 { width: 44%; top: 10%; right: -5%; }
       .photo-5 { width: 36%; top: 38%; right: -6%; }
