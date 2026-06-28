@@ -1119,77 +1119,42 @@
               <div class="gallery-grid">
                 <!-- 額縁1 -->
                 <div class="gallery-item">
-                  <div class="gold-frame">
-                    <img src="images/gallery-1.jpg" alt="ギャラリー画像1" loading="lazy" decoding="async">
-                  </div>
+                  <div class="gold-frame"><img src="images/gallery-1.jpg" alt="ギャラリー画像1" loading="lazy" decoding="async"></div>
                   <p class="gallery-caption">作品タイトル / 〇〇さん作</p>
                 </div>
                 <!-- 額縁2 -->
                 <div class="gallery-item">
-                  <div class="gold-frame">
-                    <img src="images/gallery-2.jpg" alt="ギャラリー画像2" loading="lazy" decoding="async">
-                  </div>
+                  <div class="gold-frame"><img src="images/gallery-2.jpg" alt="ギャラリー画像2" loading="lazy" decoding="async"></div>
                   <p class="gallery-caption">みんなで討伐！ / 〇〇さん作</p>
                 </div>
                 <!-- 額縁3 -->
                 <div class="gallery-item">
-                  <div class="gold-frame">
-                    <img src="images/gallery-3.jpg" alt="ギャラリー画像3" loading="lazy" decoding="async">
-                  </div>
+                  <div class="gold-frame"><img src="images/gallery-3.jpg" alt="ギャラリー画像3" loading="lazy" decoding="async"></div>
                   <p class="gallery-caption">無題 / 〇〇さん作</p>
                 </div>
-              </div>
-
-
                 <!-- 額縁4 -->
                 <div class="gallery-item">
-                  <div class="gold-frame">
-                    <img src="images/gallery-4.jpg" alt="ギャラリー画像3" loading="lazy" decoding="async">
-                  </div>
+                  <div class="gold-frame"><img src="images/gallery-4.jpg" alt="ギャラリー画像4" loading="lazy" decoding="async"></div>
                   <p class="gallery-caption">無題 / 〇〇さん作</p>
                 </div>
-              </div>
-
-
-            
                 <!-- 額縁5 -->
                 <div class="gallery-item">
-                  <div class="gold-frame">
-                    <img src="images/gallery-5.jpg" alt="ギャラリー画像3" loading="lazy" decoding="async">
-                  </div>
+                  <div class="gold-frame"><img src="images/gallery-5.jpg" alt="ギャラリー画像5" loading="lazy" decoding="async"></div>
                   <p class="gallery-caption">無題 / 〇〇さん作</p>
                 </div>
-              </div>
-            
-
-        
                 <!-- 額縁6 -->
                 <div class="gallery-item">
-                  <div class="gold-frame">
-                    <img src="images/gallery-6.jpg" alt="ギャラリー画像3" loading="lazy" decoding="async">
-                  </div>
+                  <div class="gold-frame"><img src="images/gallery-6.jpg" alt="ギャラリー画像6" loading="lazy" decoding="async"></div>
                   <p class="gallery-caption">無題 / 〇〇さん作</p>
                 </div>
-              </div>
-
-
-              
                 <!-- 額縁7 -->
                 <div class="gallery-item">
-                  <div class="gold-frame">
-                    <img src="images/gallery-7.jpg" alt="ギャラリー画像3" loading="lazy" decoding="async">
-                  </div>
+                  <div class="gold-frame"><img src="images/gallery-7.jpg" alt="ギャラリー画像7" loading="lazy" decoding="async"></div>
                   <p class="gallery-caption">無題 / 〇〇さん作</p>
                 </div>
-              </div>
-
-
-      
                 <!-- 額縁8 -->
                 <div class="gallery-item">
-                  <div class="gold-frame">
-                    <img src="images/gallery-8.jpg" alt="ギャラリー画像3" loading="lazy" decoding="async">
-                  </div>
+                  <div class="gold-frame"><img src="images/gallery-8.jpg" alt="ギャラリー画像8" loading="lazy" decoding="async"></div>
                   <p class="gallery-caption">無題 / 〇〇さん作</p>
                 </div>
               </div>
@@ -1271,6 +1236,15 @@
       <path d="M12 19V5M5 12l7-7 7 7"/>
     </svg>
   </button>
+
+    <!-- 👑 新規追加：画像拡大表示用（ライトボックス） -->
+  <div id="image-modal" aria-hidden="true">
+    <div class="modal-bg"></div>
+    <div class="modal-content">
+      <img id="modal-img" src="" alt="拡大画像">
+      <button id="modal-close" aria-label="閉じる">×</button>
+    </div>
+  </div>
   
   <script src="script.js"></script>
   
