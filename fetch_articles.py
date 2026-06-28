@@ -1,49 +1,62 @@
 """
-fetch_articles.py ― まほろば！攻略情報 自動収集スクリプト v2.0
+fetch_articles.py ― まほろば！攻略情報 自動収集スクリプト v3.0
 ===========================================================
 情報源：
-  ① Reddit RSS（JSON APIより制限が緩く、CI環境でも安定）
-  ② Fandom Wiki API（Dada Survivor Wiki）
+  ① Reddit RSS（キーワードフィルタ廃止・検索結果をそのまま取得）
+  ② はてなブックマーク RSS（日本語・安定・公開API）
 失敗時も空JSONを生成してデプロイを止めません。
 ===========================================================
 """
 
-import json, time, re, requests
+import json, time, requests
 from datetime import datetime, timezone, timedelta
 from xml.etree import ElementTree
 
-UA      = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 HEADERS = {
     "User-Agent": UA,
     "Accept": "application/rss+xml, application/xml, text/xml, */*",
 }
 TIMEOUT = 20
-JST     = timezone(timedelta(hours=9))
-
-KEYWORDS = [
-    "ダダサバイバー", "ダダサバ", "攻略", "最強", "Tier",
-    "アップデート", "初心者", "ペット", "装備", "ギルド",
-    "Dada Survivor", "DadaSurvivor",
-    "tier list", "best build", "patch notes",
-    "beginner", "guide", "guild", "update", "hero",
-]
+JST = timezone(timedelta(hours=9))
 
 def now_jst():
     return datetime.now(JST).strftime('%Y-%m-%d %H:%M')
 
-def is_relevant(text):
-    t = text.lower()
-    return any(kw.lower() in t for kw in KEYWORDS)
+def parse_date(text):
+    """日付文字列をYYYY-MM-DD形式に変換"""
+    if not text:
+        return now_jst()[:10]
+    text = text.strip()
+    # ISO8601形式（RedditのAtom）
+    for fmt in [
+        '%Y-%m-%dT%H:%M:%S%z',
+        '%Y-%m-%dT%H:%M:%S+00:00',
+    ]:
+        try:
+            dt = datetime.strptime(text[:25], fmt[:len(fmt)])
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            return dt.astimezone(JST).strftime('%Y-%m-%d')
+        except Exception:
+            pass
+    # RFC2822形式（はてなのRSS 2.0）
+    try:
+        from email.utils import parsedate_to_datetime
+        dt = parsedate_to_datetime(text)
+        return dt.astimezone(JST).strftime('%Y-%m-%d')
+    except Exception:
+        pass
+    return now_jst()[:10]
 
 # ============================================================
-# リトライ付きGET（エラー詳細ログ付き）
+# リトライ付きGET
 # ============================================================
-def safe_get(url, retries=3, wait=5, extra_headers=None):
-    h = {**HEADERS, **(extra_headers or {})}
+def safe_get(url, retries=2, wait=6):
     for i in range(retries):
         try:
-            r = requests.get(url, headers=h, timeout=TIMEOUT)
-            print(f"    HTTP {r.status_code} ← {url[:80]}")
+            r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
+            print(f"    HTTP {r.status_code} ← {url[:70]}")
             if r.status_code == 429:
                 print(f"    [429] レート制限 → {wait}秒待機 ({i+1}/{retries})")
                 time.sleep(wait)
@@ -64,93 +77,158 @@ def safe_get(url, retries=3, wait=5, extra_headers=None):
     return None
 
 # ============================================================
-# ① Reddit RSS（JSON APIより安定・CI環境でのブロックが少ない）
+# XML/RSSパーサー共通関数
+# ============================================================
+def parse_rss_entries(content_bytes):
+    """
+    AtomとRSS2.0の両形式に対応した汎用パーサー。
+    [{title, url, date, summary}] を返す。
+    """
+    items = []
+    try:
+        root = ElementTree.fromstring(content_bytes)
+    except ElementTree.ParseError as e:
+        print(f"    XML解析エラー: {e}")
+        return items
+
+    ns_atom = 'http://www.w3.org/2005/Atom'
+
+    # --- Atom形式（Reddit） ---
+    entries = root.findall(f'.//{{{ns_atom}}}entry')
+    if entries:
+        for entry in entries:
+            title_el = entry.find(f'{{{ns_atom}}}title')
+            title    = title_el.text.strip() if title_el is not None and title_el.text else ""
+
+            link_el  = entry.find(f'{{{ns_atom}}}link')
+            url      = link_el.get('href', '') if link_el is not None else ""
+
+            date_el  = (entry.find(f'{{{ns_atom}}}updated') or
+                        entry.find(f'{{{ns_atom}}}published'))
+            date     = parse_date(date_el.text if date_el is not None else "")
+
+            summary_el = entry.find(f'{{{ns_atom}}}summary')
+            summary    = ""
+            if summary_el is not None and summary_el.text:
+                # HTMLタグを除去
+                import re
+                summary = re.sub(r'<[^>]+>', '', summary_el.text).strip()[:150]
+
+            if title and url:
+                items.append({
+                    "title": title, "url": url,
+                    "date": date, "summary": summary,
+                })
+        return items
+
+    # --- RSS 2.0形式（はてな等） ---
+    for item in root.findall('.//item'):
+        title_el = item.find('title')
+        title    = title_el.text.strip() if title_el is not None and title_el.text else ""
+
+        link_el  = item.find('link')
+        url      = link_el.text.strip() if link_el is not None and link_el.text else ""
+
+        date_el  = item.find('pubDate')
+        date     = parse_date(date_el.text if date_el is not None else "")
+
+        desc_el  = item.find('description')
+        summary  = ""
+        if desc_el is not None and desc_el.text:
+            import re
+            summary = re.sub(r'<[^>]+>', '', desc_el.text).strip()[:150]
+
+        if title and url:
+            items.append({
+                "title": title, "url": url,
+                "date": date, "summary": summary,
+            })
+
+    return items
+
+# ============================================================
+# ① Reddit RSS
+# 検索クエリで既に絞り込み済みのため is_relevant() フィルタ不要
 # ============================================================
 def fetch_reddit_rss():
-    print("\n[fetch] Reddit RSS から情報収集中...")
+    print("\n[fetch] ① Reddit RSS から情報収集中...")
     articles = []
 
-    # RSSフィードURL一覧（subreddit + 検索）
-    rss_urls = [
-        "https://www.reddit.com/search.rss?q=Dada+Survivor&sort=new&limit=10",
-        "https://www.reddit.com/search.rss?q=DadaSurvivor&sort=new&limit=10",
-        "https://www.reddit.com/r/dadasurvivor/.rss",  # 専用subredditがあれば
+    queries = [
+        ("Dada+Survivor",          "EN"),
+        ("Dada+Survivor+guide",    "EN"),
+        ("Dada+Survivor+tier",     "EN"),
     ]
 
-    for rss_url in rss_urls:
-        r = safe_get(rss_url)
+    for query, lang in queries:
+        url = f"https://www.reddit.com/search.rss?q={query}&sort=new&limit=8"
+        r   = safe_get(url)
         if r is None:
-            print(f"    スキップ: {rss_url[:60]}")
             continue
 
-        try:
-            root = ElementTree.fromstring(r.content)
-            # RSSのnamespace対応
-            ns = {
-                'atom': 'http://www.w3.org/2005/Atom',
-                'media': 'http://search.yahoo.com/mrss/',
-            }
+        entries = parse_rss_entries(r.content)
+        print(f"    「{query}」: {len(entries)}件パース成功")
 
-            # Atom形式（Redditの標準）
-            entries = root.findall('.//atom:entry', ns)
-            if not entries:
-                # RSS 2.0形式のフォールバック
-                entries = root.findall('.//item')
+        for e in entries:
+            articles.append({
+                "source":  "Reddit",
+                "lang":    lang,
+                "title":   e["title"],
+                "url":     e["url"],
+                "date":    e["date"],
+                "summary": e["summary"],
+                "score":   0,
+            })
 
-            print(f"    エントリー数: {len(entries)}件")
+        time.sleep(3)  # 429対策：間隔を3秒に延長
 
-            for entry in entries:
-                # タイトル取得（Atom / RSS両対応）
-                title_el = (
-                    entry.find('atom:title', ns) or
-                    entry.find('title')
-                )
-                title = title_el.text.strip() if title_el is not None and title_el.text else ""
+    # 重複除去
+    seen, unique = set(), []
+    for a in articles:
+        if a["url"] not in seen:
+            seen.add(a["url"])
+            unique.append(a)
 
-                # URL取得
-                link_el = (
-                    entry.find('atom:link', ns) or
-                    entry.find('link')
-                )
-                if link_el is not None:
-                    url = link_el.get('href') or link_el.text or ""
-                else:
-                    url = ""
+    print(f"[fetch] Reddit RSS: {len(unique)}件（重複除去後）")
+    return unique
 
-                # 日付取得
-                date_el = (
-                    entry.find('atom:updated', ns) or
-                    entry.find('atom:published', ns) or
-                    entry.find('pubDate')
-                )
-                if date_el is not None and date_el.text:
-                    try:
-                        # ISO8601形式をパース
-                        dt_str = date_el.text.strip()
-                        dt = datetime.fromisoformat(dt_str.replace('Z', '+00:00'))
-                        date = dt.astimezone(JST).strftime('%Y-%m-%d')
-                    except Exception:
-                        date = now_jst()[:10]
-                else:
-                    date = now_jst()[:10]
+# ============================================================
+# ② はてなブックマーク RSS
+# 公開RSS・CI環境でのブロックなし・日本語情報に強い
+# ============================================================
+def fetch_hatena():
+    print("\n[fetch] ② はてなブックマーク RSS から情報収集中...")
+    articles = []
 
-                if not title or not url:
-                    continue
-                if not is_relevant(title):
-                    continue
+    # 検索キーワード一覧（日本語）
+    queries = [
+        "ダダサバイバー",
+        "ダダサバ 攻略",
+        "ダダサバ ギルド",
+    ]
 
-                articles.append({
-                    "source":  "Reddit",
-                    "lang":    "EN",
-                    "title":   title,
-                    "url":     url,
-                    "date":    date,
-                    "summary": "",
-                    "score":   0,
-                })
+    for query in queries:
+        url = (
+            "https://b.hatena.ne.jp/search/text"
+            f"?q={requests.utils.quote(query)}&mode=rss&sort=recent"
+        )
+        r = safe_get(url)
+        if r is None:
+            continue
 
-        except ElementTree.ParseError as e:
-            print(f"    XML解析エラー: {e}")
+        entries = parse_rss_entries(r.content)
+        print(f"    「{query}」: {len(entries)}件パース成功")
+
+        for e in entries:
+            articles.append({
+                "source":  "はてなブックマーク",
+                "lang":    "JP",
+                "title":   e["title"],
+                "url":     e["url"],
+                "date":    e["date"],
+                "summary": e["summary"],
+                "score":   0,
+            })
 
         time.sleep(2)
 
@@ -161,55 +239,11 @@ def fetch_reddit_rss():
             seen.add(a["url"])
             unique.append(a)
 
-    print(f"[fetch] Reddit RSS: {len(unique)}件取得")
+    print(f"[fetch] はてな: {len(unique)}件（重複除去後）")
     return unique
 
 # ============================================================
-# ② Fandom Wiki API（ゲーム攻略情報・安定動作）
-# ============================================================
-def fetch_fandom():
-    print("\n[fetch] Fandom Wiki から情報収集中...")
-    articles = []
-
-    # ★ Dada Survivor の Fandom Wiki（存在しない場合は0件でスキップ）
-    base = "https://dada-survivor.fandom.com"
-    api  = f"{base}/api.php?action=query&list=allpages&aplimit=20&apnamespace=0&format=json"
-
-    r = safe_get(api)
-    if r is None:
-        print("    Fandom Wiki: 取得失敗 → スキップ")
-        return []
-
-    try:
-        data  = r.json()
-        pages = data.get("query", {}).get("allpages", [])
-        print(f"    Fandom Wiki: {len(pages)}ページ取得")
-
-        for page in pages:
-            title = page.get("title", "").strip()
-            if not title:
-                continue
-            page_url = f"{base}/wiki/{requests.utils.quote(title.replace(' ', '_'))}"
-
-            articles.append({
-                "source":  "Fandom Wiki",
-                "lang":    "EN",
-                "title":   title,
-                "url":     page_url,
-                "date":    now_jst()[:10],
-                "summary": "Dada Survivor Wiki の攻略ページ",
-                "score":   0,
-            })
-            time.sleep(0.3)
-
-    except Exception as e:
-        print(f"    Fandom Wiki 解析エラー: {e}")
-
-    print(f"[fetch] Fandom: {len(articles)}件取得")
-    return articles
-
-# ============================================================
-# メイン（失敗時も空JSONを必ず生成）
+# メイン
 # ============================================================
 def main():
     print("=" * 50)
@@ -224,12 +258,12 @@ def main():
         print(f"[fetch] Reddit RSS 予期せぬエラー: {e}")
 
     try:
-        articles += fetch_fandom()
+        articles += fetch_hatena()
     except Exception as e:
-        print(f"[fetch] Fandom 予期せぬエラー: {e}")
+        print(f"[fetch] はてな 予期せぬエラー: {e}")
 
-    # スコア降順ソート
-    articles.sort(key=lambda x: -x.get("score", 0))
+    # 日付降順ソート（新しい記事が上に来る）
+    articles.sort(key=lambda x: x.get("date", ""), reverse=True)
 
     output = {
         "generated_at": now_jst(),
@@ -242,9 +276,9 @@ def main():
 
     if articles:
         print(f"\n[fetch] ✅ articles.json 生成完了（{len(articles)}件）")
-        print("\n[fetch] 取得記事プレビュー（上位3件）:")
-        for a in articles[:3]:
-            print(f"  [{a['source']}] {a['title'][:60]}")
+        print("\n[fetch] 取得記事プレビュー（上位5件）:")
+        for a in articles[:5]:
+            print(f"  [{a['source']}][{a['lang']}] {a['title'][:55]}")
     else:
         print("\n[fetch] ⚠️ 全ソース取得失敗。空のarticles.jsonを生成（デプロイは続行）")
 
