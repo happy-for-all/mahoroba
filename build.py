@@ -3,8 +3,8 @@ build.py ― まほろば！（ダダサバイバー ギルド紹介サイト）
 ===========================================================================
 処理フロー：
   1. dist/ ディレクトリを初期化
-  2. index.html を dist/ にコピー
-  3. MD5ハッシュを生成して _cache_bust.txt に記録
+  2. ファイル群を dist/ にコピー
+  3. index.html の MD5ハッシュを生成して _cache_bust.txt に記録
   4. ビルド完了サマリーを表示
 ===========================================================================
 """
@@ -12,6 +12,7 @@ build.py ― まほろば！（ダダサバイバー ギルド紹介サイト）
 import os
 import shutil
 import hashlib
+import sys
 from datetime import datetime, timezone, timedelta
 
 # ============================================================
@@ -20,6 +21,9 @@ from datetime import datetime, timezone, timedelta
 DIST_DIR   = 'dist'
 INDEX_HTML = 'index.html'
 JST        = timezone(timedelta(hours=9))
+
+# コピー対象ファイル一覧
+FILES_TO_COPY = [INDEX_HTML, 'style.css', 'script.js', 'articles.json']
 
 # ============================================================
 # ユーティリティ
@@ -47,31 +51,34 @@ def build():
     os.makedirs(DIST_DIR, exist_ok=True)
     print(f'[build] {DIST_DIR}/ を初期化しました')
 
-    # --- index.html の存在確認 ---
+    # --- index.html の存在確認（必須ファイル）---
     if not os.path.exists(INDEX_HTML):
         print(f'[build] ❌ エラー: {INDEX_HTML} が見つかりません')
-        raise FileNotFoundError(f'{INDEX_HTML} not found')
+        sys.exit(1)  # 明示的に終了（raiseより安全）
 
-    # --- index.html を dist/ にコピー ---
     # --- ファイル群を dist/ にコピー ---
-    # ★ ここに css と js を追加します（デグレ防止アドオン）
-    # ★ articles.json を追加（fetch_articles.py が生成するファイル）
-    files_to_copy = [INDEX_HTML, 'style.css', 'script.js', 'articles.json']
-    
-    for file_name in files_to_copy:
+    for file_name in FILES_TO_COPY:
         if os.path.exists(file_name):
             dest = os.path.join(DIST_DIR, file_name)
             shutil.copy2(file_name, dest)
-            print(f'[build] {file_name} → {DIST_DIR}/ にコピー完了')
+            print(f'[build] ✅ {file_name} → {DIST_DIR}/ にコピー完了')
         else:
-            print(f'[build] ⚠️ 警告: {file_name} が見つからないためスキップしました')
+            print(f'[build] ⚠️  警告: {file_name} が見つからないためスキップしました')
 
-    # --- MD5ハッシュ生成（CDNキャッシュ破棄用）---
-    file_hash = md5_file(dest)
+    # --- MD5ハッシュ生成（index.html を基準に固定）---
+    # ★ dest変数バグ修正：ループ変数に依存せず index.html のパスを直接指定
+    index_dest = os.path.join(DIST_DIR, INDEX_HTML)
+    file_hash = md5_file(index_dest)
     cache_bust_path = os.path.join(DIST_DIR, '_cache_bust.txt')
     with open(cache_bust_path, 'w', encoding='utf-8') as f:
         f.write(file_hash)
     print(f'[build] キャッシュバスト用ハッシュ: {file_hash}')
+
+    # --- dist/ の中身を確認（デプロイ前の最終確認）---
+    print(f'[build] dist/ の内容:')
+    for f in sorted(os.listdir(DIST_DIR)):
+        size = os.path.getsize(os.path.join(DIST_DIR, f))
+        print(f'[build]   {f} ({size:,} bytes)')
 
     # --- 完了サマリー ---
     print('=' * 60)
