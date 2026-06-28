@@ -51,23 +51,49 @@ fetch('./articles.json')
     }
 
     // 上位10件を表示
-    const html = data.articles.slice(0, 10).map(a => `
-      <p style="margin-bottom: 12px; padding-bottom: 12px;
-                border-bottom: 1px solid var(--color-glass-border);">
-        <span style="font-size:10px; background:rgba(199,139,68,0.12);
-                     color:var(--color-accent); padding:2px 6px;
-                     border-radius:10px; margin-right:6px;">${a.source}</span>
-        <a href="${a.url}" target="_blank" rel="noopener noreferrer">
-          ${a.title}
-        </a>
-        <span style="display:block; font-size:11px;
-                     color:var(--color-accent); margin-top:4px;">
-          ${a.date}
-        </span>
-      </p>
-    `).join('');
+    // XSSエスケープ関数（innerHTML直接埋め込みを安全に）
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
 
-    body.innerHTML = html;
+    const html = data.articles.slice(0, 10).map(a => {
+      const summary = a.summary
+        ? `<span style="display:block; font-size:12px; color:var(--color-text);
+                        margin-top:4px; opacity:0.75; line-height:1.6;">
+             ${escHtml(a.summary.slice(0, 100))}${a.summary.length > 100 ? '…' : ''}
+           </span>`
+        : '';
+      return `
+        <p style="margin-bottom:14px; padding-bottom:14px;
+                  border-bottom:1px solid var(--color-glass-border);">
+          <span style="font-size:10px; background:rgba(199,139,68,0.12);
+                       color:var(--color-accent); padding:2px 6px;
+                       border-radius:10px; margin-right:6px;">
+            ${escHtml(a.source)}
+          </span>
+          <span style="font-size:10px; background:rgba(100,160,100,0.12);
+                       color:#5a8a5a; padding:2px 6px;
+                       border-radius:10px; margin-right:6px;">
+            ${a.lang === 'JP' ? '日本語' : 'English'}
+          </span>
+          <a href="${escHtml(a.url)}" target="_blank" rel="noopener noreferrer"
+             style="font-weight:500;">
+            ${escHtml(a.title)}
+          </a>
+          ${summary}
+          <span style="display:block; font-size:11px;
+                       color:var(--color-accent); margin-top:4px;">
+            📅 ${escHtml(a.date)}
+          </span>
+        </p>`;
+    }).join('');
+
+    body.innerHTML = html || '<p>現在、記事を取得中です。しばらくお待ちください。</p>';
   })
   .catch(() => {
     const body = document.getElementById('world-info-body');
