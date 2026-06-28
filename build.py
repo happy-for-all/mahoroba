@@ -53,9 +53,17 @@ def build():
         raise FileNotFoundError(f'{INDEX_HTML} not found')
 
     # --- index.html を dist/ にコピー ---
-    dest = os.path.join(DIST_DIR, INDEX_HTML)
-    shutil.copy2(INDEX_HTML, dest)
-    print(f'[build] {INDEX_HTML} → {DIST_DIR}/ にコピー完了')
+    # --- ファイル群を dist/ にコピー ---
+    # ★ ここに css と js を追加します（デグレ防止アドオン）
+    files_to_copy = [INDEX_HTML, 'style.css', 'script.js']
+    
+    for file_name in files_to_copy:
+        if os.path.exists(file_name):
+            dest = os.path.join(DIST_DIR, file_name)
+            shutil.copy2(file_name, dest)
+            print(f'[build] {file_name} → {DIST_DIR}/ にコピー完了')
+        else:
+            print(f'[build] ⚠️ 警告: {file_name} が見つからないためスキップしました')
 
     # --- MD5ハッシュ生成（CDNキャッシュ破棄用）---
     file_hash = md5_file(dest)
