@@ -891,12 +891,16 @@
       .photo-6 { width: 42%; bottom: 8%; left: -5%; }
       .photo-7 { width: 40%; bottom: 6%; right: -5%; }
 
-      /* 🔴 【修正②】スマホ用メディアクエリのセレクタ簡略化（.glass-section 単一で指定） */
+  /* 🔴 スマホ用の変数（:root）設定 */
       :root {
-    .glass-section {
-    padding: 56px 16px;
-    margin-bottom: 200px; /* ← セクション間、スマホ用の隙間を直接指定 */
-    background: rgba(255, 251, 244, 0.96);
+        /* 必要に応じてスマホ用の変数をここに記述できます */
+      }
+
+      /* 🔴 【修正②】スマホ用メディアクエリのセレクタ簡略化（.glass-section 単一で指定） */
+      .glass-section {
+        padding: 56px 16px;
+        margin-bottom: 200px; /* ← セクション間、スマホ用の隙間を直接指定 */
+        background: rgba(255, 251, 244, 0.96);
       }
 
       /* CTAボタンを縦並びに */
@@ -924,12 +928,12 @@
   width: 48px;
   height: 48px;
   background: var(--color-glass-bg);
-  border: 1.5px solid var(--color-accent);
+  border: 1.5px solid #F596AA; /* 🌸 枠線を美しい桜色に変更 */
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-accent);
+  color: #F596AA; /* 🌸 矢印の色を美しい桜色に変更 */
   cursor: pointer;
   z-index: 900;
   /* 初期状態は非表示（下に隠しておく） */
@@ -951,16 +955,6 @@
 
 /* ホバーでお洒落に色反転 */
 #page-top:hover {
-  background: var(--color-accent);
-  color: #fff;
-}
-
-/* スマホ時は少し小さくして押しやすい位置に */
-@media (max-width: 768px) {
-  #page-top {
-    bottom: 16px;
-    right: 16px;
-    width: 44px;
-    height: 44px;
-  }
+  background: #F596AA; /* 🌸 マウスを乗せた時、背景が桜色にフワッと光る */
+  color: #fff;         /* 🌸 矢印は白に抜ける */
 }
