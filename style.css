@@ -75,16 +75,19 @@
       left: 0;
       width: 100%;
       z-index: 900;
-      background: rgba(248, 243, 234, 0.85);
+      /* 🌸 ほんのり桜がかった半透明すりガラス（撫子桜色）に変更 */
+      background: rgba(255, 242, 244, 0.82); 
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--color-glass-border);
+      /* 🌸 下の細い枠線を、優しい桜色（30%の半透明）に変更 */
+      border-bottom: 1px solid rgba(245, 150, 170, 0.3);
       transition: box-shadow 0.3s, padding 0.3s;
       padding: 0px 0;
     }
     #global-nav.scrolled {
-      box-shadow: 0 2px 16px rgba(75, 64, 53, 0.1);
-      background: rgba(248, 243, 234, 0.94); /* スクロール時は少し不透明に */
+      box-shadow: 0 2px 16px rgba(75, 64, 53, 0.15);
+      /* 🌸 スクロール時は少しだけ不透明な桜色にして文字を読みやすくします */
+      background: rgba(255, 242, 244, 0.93); 
     }
 
     .nav-inner {
