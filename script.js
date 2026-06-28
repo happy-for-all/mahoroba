@@ -123,3 +123,28 @@ pageTopBtn.addEventListener('click', () => {
     behavior: 'smooth'
   });
 });
+
+
+// ============================================================
+// ④ ギャラリー画像の拡大表示（ライトボックス）
+// ============================================================
+const modal = document.getElementById('image-modal');
+const modalImg = document.getElementById('modal-img');
+const modalBg = document.querySelector('.modal-bg');
+const modalClose = document.getElementById('modal-close');
+const galleryImgs = document.querySelectorAll('.gold-frame img');
+
+// 画像がクリックされたら、その画像をモーダルに渡して表示
+galleryImgs.forEach(img => {
+  img.addEventListener('click', () => {
+    modalImg.src = img.src; 
+    modal.classList.add('show');
+  });
+});
+
+// 背景の黒い部分、または「×」ボタンを押したら閉じる
+const closeModal = () => {
+  modal.classList.remove('show');
+};
+modalBg.addEventListener('click', closeModal);
+modalClose.addEventListener('click', closeModal);
