@@ -524,14 +524,24 @@
     .section-title {
       font-size: clamp(22px, 4vw, 32px);
       color: var(--color-text);
-      margin-bottom: 8px;
+      margin-bottom: 40px; /* 下の余白をこちらに統合 */
+      display: inline-block; /* 👑 ここが重要：テキスト幅に合わせる魔法 */
+      position: relative; /* 線の基準点 */
     }
-    .section-divider {
-      width: 40px;
+    /* テキスト幅に合わせてピッタリ下線を引く */
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px; /* テキストから10px下に配置 */
+      width: 100%;   /* 👑 これでテキスト幅に自動調整されます！ */
       height: 2px;
       background: linear-gradient(to right, var(--color-accent), transparent);
-      margin-bottom: 40px;
       border-radius: 2px;
+    }
+    /* 古い40pxの線は安全のために非表示化 */
+    .section-divider {
+      display: none;
     }
 
     /* ============================================================
