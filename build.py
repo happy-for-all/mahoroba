@@ -57,13 +57,21 @@ def build():
         sys.exit(1)  # 明示的に終了（raiseより安全）
 
     # --- ファイル群を dist/ にコピー ---
-    for file_name in FILES_TO_COPY:
+   
+    for file_name in files_to_copy:
         if os.path.exists(file_name):
             dest = os.path.join(DIST_DIR, file_name)
             shutil.copy2(file_name, dest)
-            print(f'[build] ✅ {file_name} → {DIST_DIR}/ にコピー完了')
+            print(f'[build] {file_name} → {DIST_DIR}/ にコピー完了')
         else:
-            print(f'[build] ⚠️  警告: {file_name} が見つからないためスキップしました')
+            print(f'[build] ⚠️ 警告: {file_name} が見つからないためスキップしました')
+
+    # 👑 追加：images フォルダを丸ごとコピーする処理
+    IMAGES_DIR = 'images'
+    if os.path.exists(IMAGES_DIR):
+        dest_images = os.path.join(DIST_DIR, IMAGES_DIR)
+        shutil.copytree(IMAGES_DIR, dest_images)
+        print(f'[build] 📁 {IMAGES_DIR}/ → {DIST_DIR}/ に丸ごとコピー完了')
 
     # --- MD5ハッシュ生成（index.html を基準に固定）---
     # ★ dest変数バグ修正：ループ変数に依存せず index.html のパスを直接指定
