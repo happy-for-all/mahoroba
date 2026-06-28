@@ -58,7 +58,7 @@ def build():
 
     # --- ファイル群を dist/ にコピー ---
    
-    for file_name in files_to_copy:
+    for file_name in FILES_TO_COPY:
         if os.path.exists(file_name):
             dest = os.path.join(DIST_DIR, file_name)
             shutil.copy2(file_name, dest)
