@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
-  # 手動実行ボタンも使えるように追加
   workflow_dispatch:
-  # ★ 追加：毎日JST午前6時に自動実行（UTC 21:00 = JST 06:00）
+  # 毎日JST 06:13 に自動実行（UTC 21:13）
   schedule:
     - cron: '13 21 * * *'
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -27,9 +27,22 @@ jobs:
       - name: Python ライブラリをインストール
         run: pip install requests
 
-      # ★ 攻略情報を収集して articles.json を生成
+      # 攻略情報を収集して articles.json を生成
+      # ★ 失敗してもデプロイを止めない（continue-on-error: true）
       - name: 攻略情報を収集
         run: python fetch_articles.py
+        continue-on-error: true
+
+      # dist/ フォルダを生成
+      - name: build.py を実行
+        run: python build.py
+
+      # ★ dist/ が存在するか確認（デバッグ用・問題発生時に原因がすぐわかる）
+      - name: dist/ の存在確認
+        run: |
+          echo "=== dist/ の内容 ==="
+          ls -la dist/
+          echo "=== 確認完了 ==="
 
       - name: Node.js 22 をセットアップ
         uses: actions/setup-node@v4
@@ -41,6 +54,5 @@ jobs:
 
       - name: Cloudflare Workers へデプロイ
         env:
-          # GH リポジトリの Settings → Secrets → CLOUDFLARE_API_TOKEN に登録済みであること
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: wrangler deploy
