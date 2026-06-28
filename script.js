@@ -100,3 +100,26 @@ fetch('./articles.json')
     if (body) body.innerHTML =
       '<p>情報の読み込みに失敗しました。しばらくお待ちください。</p>';
   });
+
+
+// ============================================================
+// ③ トップに戻るボタンの制御
+// ============================================================
+const pageTopBtn = document.getElementById('page-top');
+
+// スクロール量が300pxを超えたらボタンを表示
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 300) {
+    pageTopBtn.classList.add('show');
+  } else {
+    pageTopBtn.classList.remove('show');
+  }
+}, { passive: true });
+
+// クリックされたら一番上へスムーズにスクロール
+pageTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
