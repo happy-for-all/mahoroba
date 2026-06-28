@@ -55,7 +55,8 @@ def build():
     # --- index.html を dist/ にコピー ---
     # --- ファイル群を dist/ にコピー ---
     # ★ ここに css と js を追加します（デグレ防止アドオン）
-    files_to_copy = [INDEX_HTML, 'style.css', 'script.js']
+    # ★ articles.json を追加（fetch_articles.py が生成するファイル）
+    files_to_copy = [INDEX_HTML, 'style.css', 'script.js', 'articles.json']
     
     for file_name in files_to_copy:
         if os.path.exists(file_name):
