@@ -693,6 +693,18 @@
     /* ============================================================
       加入案内（join）CTAボタン
     ============================================================ */
+    /* ============================================================
+      加入案内（join）CTAボタン
+    ============================================================ */
+    /* 👑 Joinセクション全体を中央揃えにする安全なアドオン */
+    #join .section-inner {
+      text-align: center;
+    }
+    /* 中央揃えに似合うよう、線を中央から両端へ消えるグラデーションに上書き（より美しくなります！） */
+    #join .section-title::after {
+      background: linear-gradient(to right, transparent, var(--color-accent), transparent);
+    }
+
     .join-text {
       font-size: 15px;
       line-height: 2;
@@ -702,6 +714,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 16px;
+      justify-content: center; /* 👑 ボタンを中央に寄せる */
     }
     .cta-btn {
       display: inline-block;
