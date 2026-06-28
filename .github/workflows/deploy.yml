@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
   # ★ 追加：毎日JST午前6時に自動実行（UTC 21:00 = JST 06:00）
   schedule:
-    - cron: '0 21 * * *'
+    - cron: '13 21 * * *'
 jobs:
   deploy:
     runs-on: ubuntu-latest
