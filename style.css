@@ -204,7 +204,7 @@
       overflow: hidden;
       box-shadow: 0 8px 32px rgba(75, 64, 53, 0.18), 0 2px 8px rgba(75, 64, 53, 0.1);
       background: #e8ddc8; /* 画像読み込み前の仮背景色 */
-      opacity: 0.82;       /* すりガラスの下からほんのり見えるよう透過度を最適化 */
+      opacity: 0.45;       /* すりガラスの下からほんのり見えるよう透過度を最適化 */
     }
     .photo-frame img {
       width: 100%;
