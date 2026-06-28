@@ -868,6 +868,66 @@
       color: white;
     }
 
+/* ============================================================
+  まほろばギャラリー（gallery）
+============================================================ */
+/* PCは3列のグリッド */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 16px;
+}
+
+/* ギャラリーの各アイテム */
+.gallery-item {
+  text-align: center;
+}
+
+/* 👑 金色の豪華な額縁 */
+.gold-frame {
+  position: relative;
+  padding: 10px; /* 額縁の内側のマット（台紙）の幅 */
+  background: #2a221b; /* マットの色（高級感のあるダークブラウン） */
+  
+  /* 額縁の金箔グラデーション */
+  border: 5px solid;
+  border-image: linear-gradient(135deg, #FFDF73 0%, #8A623A 25%, #EACD70 50%, #C78B44 75%, #FFF0B3 100%) 1;
+  box-shadow: 0 8px 24px rgba(75, 64, 53, 0.4), inset 0 2px 8px rgba(0, 0, 0, 0.6);
+  margin-bottom: 12px;
+  transition: transform 0.3s ease;
+}
+
+/* マウスを乗せると絵画が少し浮かび上がる演出 */
+.gold-frame:hover {
+  transform: scale(1.03);
+}
+
+.gold-frame img {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* 正方形に統一して美術館のように揃える */
+  object-fit: cover; /* 画像が歪まないようにトリミング */
+  display: block;
+}
+
+/* 画像の説明文 */
+.gallery-caption {
+  font-size: 12px;
+  color: var(--color-text);
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+/* 📱 スマホ時は2列に変更 */
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+
+
     /* ============================================================
       スマホ対応（レスポンシブ・iOSバグ対策）
     ============================================================ */
