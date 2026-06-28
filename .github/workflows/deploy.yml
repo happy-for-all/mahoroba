@@ -23,12 +23,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      # build.py は標準ライブラリのみ使用のため pip install は省略（最速化）
-      # ★ 追加：攻略情報を収集して articles.json を生成
+      # fetch_articles.py が requests を使用するためインストール
+      - name: Python ライブラリをインストール
+        run: pip install requests
+
+      # ★ 攻略情報を収集して articles.json を生成
       - name: 攻略情報を収集
         run: python fetch_articles.py
-      - name: build.py を実行
-        run: python build.py
 
       - name: Node.js 22 をセットアップ
         uses: actions/setup-node@v4
