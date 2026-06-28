@@ -1,0 +1,9 @@
+# ビルド生成物（Gitには含めない）
+dist/
+articles.json
+_cache_bust.txt
+
+# Python キャッシュ
+__pycache__/
+*.pyc
+*.pyo
