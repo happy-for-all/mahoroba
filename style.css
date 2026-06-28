@@ -914,4 +914,53 @@
       }
     }
 
- 
+ /* ============================================================
+  トップに戻るボタン（フロート配置）
+============================================================ */
+#page-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  background: var(--color-glass-bg);
+  border: 1.5px solid var(--color-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  cursor: pointer;
+  z-index: 900;
+  /* 初期状態は非表示（下に隠しておく） */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 12px rgba(75, 64, 53, 0.15);
+}
+
+/* スクロールしてクラスが付与されたらフワッと表示 */
+#page-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* ホバーでお洒落に色反転 */
+#page-top:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* スマホ時は少し小さくして押しやすい位置に */
+@media (max-width: 768px) {
+  #page-top {
+    bottom: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+  }
+}
