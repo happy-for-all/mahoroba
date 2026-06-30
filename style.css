@@ -751,6 +751,39 @@
       opacity: 1;
     }
 
+/* ============================================================
+      👑 新規追加：LINEオプチャ参加ボタン（美しく輝くLINEグリーン）
+    ============================================================ */
+    .cta-btn-line {
+      display: inline-flex;
+      align-items: center;
+      background: linear-gradient(135deg, #06C755 0%, #00B900 100%);
+      color: #fff;
+      border: 1.5px solid #06C755;
+      box-shadow: 0 4px 16px rgba(6, 199, 85, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-btn-line::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.6s ease;
+    }
+    .cta-btn-line:hover {
+      background: linear-gradient(135deg, #00B900 0%, #06C755 100%);
+      color: #fff;
+      opacity: 1;
+      box-shadow: 0 6px 22px rgba(6, 199, 85, 0.5);
+      transform: translateY(-2px);
+    }
+    .cta-btn-line:hover::before {
+      left: 125%;
+    }
+
     /* ============================================================
       AdSense プレースホルダー（コメントアウト状態）
       ★ 公開時はコメントを外すだけで有効になります
@@ -1086,4 +1119,39 @@
 }
 #modal-close:hover {
   transform: scale(1.2);
+}
+
+
+/* ============================================================
+  👑 新規追加：ピンクの肉球マーク（カーソル追従／タップ／スクロール演出）
+============================================================ */
+.mahoroba-paw {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.85;
+  animation: pawFadeOut 0.9s ease-out forwards;
+  filter: drop-shadow(0 2px 4px rgba(245, 150, 170, 0.3));
+}
+
+@keyframes pawFadeOut {
+  0% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  20% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 14px)) scale(0.8);
+  }
+}
+
+/* アニメーション軽減設定の方には控えめに */
+@media (prefers-reduced-motion: reduce) {
+  .mahoroba-paw {
+    display: none;
+  }
 }
