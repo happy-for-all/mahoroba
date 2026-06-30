@@ -148,3 +148,61 @@ const closeModal = () => {
 };
 modalBg.addEventListener('click', closeModal);
 modalClose.addEventListener('click', closeModal);
+
+
+// ============================================================
+// 👑 新規追加：ピンクの肉球マーク（カーソル追従＆タップエフェクト）
+// ============================================================
+(function() {
+  const PAW_COLOR = '#F596AA'; // サイトのアクセントピンクと統一
+  let lastPawTime = 0;
+  const PAW_INTERVAL = 120; // ms単位の間引き（連続しすぎないように）
+
+  function createPaw(x, y) {
+    const paw = document.createElement('div');
+    paw.className = 'mahoroba-paw';
+    paw.style.left = x + 'px';
+    paw.style.top = y + 'px';
+    paw.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 40 - 20}deg)`;
+    paw.innerHTML = `
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="${PAW_COLOR}">
+        <ellipse cx="12" cy="16" rx="6" ry="5"/>
+        <ellipse cx="5" cy="9" rx="2.3" ry="3"/>
+        <ellipse cx="10" cy="5.5" rx="2.3" ry="3"/>
+        <ellipse cx="15" cy="5.5" rx="2.3" ry="3"/>
+        <ellipse cx="19.5" cy="9" rx="2.3" ry="3"/>
+      </svg>`;
+    document.body.appendChild(paw);
+
+    // アニメーション終了後に要素を除去（メモリリーク防止）
+    setTimeout(() => paw.remove(), 900);
+  }
+
+  // PC：マウス移動で肉球を間引きしながら表示
+  window.addEventListener('mousemove', (e) => {
+    const now = Date.now();
+    if (now - lastPawTime > PAW_INTERVAL) {
+      createPaw(e.clientX, e.clientY);
+      lastPawTime = now;
+    }
+  });
+
+  // スマホ：タップ時に表示
+  window.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches[0]) {
+      createPaw(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  // スマホ：スクロール中も控えめに表示（画面中央寄りランダム位置）
+  let lastScrollPawTime = 0;
+  window.addEventListener('scroll', () => {
+    const now = Date.now();
+    if (now - lastScrollPawTime > 400) {
+      const x = window.innerWidth * (0.3 + Math.random() * 0.4);
+      const y = window.innerHeight * (0.3 + Math.random() * 0.4);
+      createPaw(x, y);
+      lastScrollPawTime = now;
+    }
+  }, { passive: true });
+})();
