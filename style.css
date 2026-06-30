@@ -1156,3 +1156,25 @@
     display: none;
   }
 }
+
+
+/* ============================================================
+      👑 新規追加：ギルド紹介セクション、PCのみ左右中央配置
+      ★ スマホ（768px以下）には一切影響を与えない
+    ============================================================ */
+    @media (min-width: 769px) {
+      #about .section-inner {
+        text-align: center;
+      }
+      #about .about-text {
+        text-align: center;
+      }
+      #about table {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 600px;
+      }
+      #about table th {
+        text-align: right;
+      }
+    }
