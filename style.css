@@ -754,9 +754,10 @@
 /* ============================================================
       👑 新規追加：LINEオプチャ参加ボタン（美しく輝くLINEグリーン）
     ============================================================ */
-    .cta-btn-line {
+.cta-btn-line {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       background: linear-gradient(135deg, #06C755 0%, #00B900 100%);
       color: #fff;
       border: 1.5px solid #06C755;
