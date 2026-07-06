@@ -52,6 +52,11 @@ jobs:
       - name: Wrangler をインストール
         run: npm install -g wrangler
 
+      - name: BOT WebフックURLをCloudflareのシークレットに同期
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: echo "${{ secrets.BOT_WEBHOOK_URL }}" | wrangler secret put BOT_WEBHOOK_URL
+
       - name: Cloudflare Workers へデプロイ
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
