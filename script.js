@@ -206,3 +206,71 @@ modalClose.addEventListener('click', closeModal);
     }
   }, { passive: true });
 })();
+
+
+// ============================================================
+// 👑 新規追加：AI BOT（右下フローティングチャット）
+// ============================================================
+(function() {
+  const toggleBtn = document.getElementById('mahoroba-chat-toggle');
+  const chatWindow = document.getElementById('mahoroba-chat-window');
+  const closeBtn = document.getElementById('mahoroba-chat-close');
+  const chatLog = document.getElementById('mahoroba-chat-log');
+  const chatForm = document.getElementById('mahoroba-chat-form');
+  const chatInput = document.getElementById('mahoroba-chat-input');
+
+  if (!toggleBtn || !chatWindow) return; // 要素が無ければ何もしない安全対策
+
+  function openChat() {
+    chatWindow.classList.add('show');
+    chatWindow.setAttribute('aria-hidden', 'false');
+    toggleBtn.setAttribute('aria-expanded', 'true');
+    chatInput.focus();
+  }
+  function closeChat() {
+    chatWindow.classList.remove('show');
+    chatWindow.setAttribute('aria-hidden', 'true');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    chatWindow.classList.contains('show') ? closeChat() : openChat();
+  });
+  closeBtn.addEventListener('click', closeChat);
+
+  function appendMessage(text, sender) {
+    const p = document.createElement('p');
+    p.className = `mahoroba-chat-msg mahoroba-chat-msg-${sender}`;
+    p.textContent = text;
+    chatLog.appendChild(p);
+    chatLog.scrollTop = chatLog.scrollHeight;
+  }
+
+  chatForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const userText = chatInput.value.trim();
+    if (!userText) return;
+
+    appendMessage(userText, 'user');
+    chatInput.value = '';
+    chatInput.disabled = true;
+
+    appendMessage('入力中…', 'bot');
+    const typingEl = chatLog.lastElementChild;
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userText })
+      });
+      const data = await res.json();
+      typingEl.textContent = data.reply || 'すみません、うまく返答できませんでした。';
+    } catch (err) {
+      typingEl.textContent = '通信エラーが発生しました。しばらくしてから、もう一度お試しください。';
+    } finally {
+      chatInput.disabled = false;
+      chatInput.focus();
+    }
+  });
+})();
