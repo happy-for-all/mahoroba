@@ -23,7 +23,7 @@ INDEX_HTML = 'index.html'
 JST        = timezone(timedelta(hours=9))
 
 # コピー対象ファイル一覧
-FILES_TO_COPY = [INDEX_HTML, 'style.css', 'script.js', 'articles.json']
+FILES_TO_COPY = [INDEX_HTML, 'style.css', 'script.js', 'articles.json', 'ads.txt']
 
 # ============================================================
 # ユーティリティ
